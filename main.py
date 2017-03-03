@@ -58,8 +58,8 @@ stimuli_probs = np.random.rand(neurons_cnt)
 # print 'stimuli_probs', stimuli_probs
 
 # trainning
-# for i in range(int(40000000)):
-for i in range(int(50000)):
+for i in range(int(60000000)):
+# for i in range(int(5000)):
 	rounds += 1
 	neurons_fired = np.array([False] * neurons_cnt, dtype=np.bool)  # new round begins, no neurons fired
 	neurons_stimulated = np.random.rand(neurons_cnt) < stimuli_probs  # decide what neurons are stimulated from environment
@@ -101,4 +101,5 @@ for i in range(int(50000)):
 	data.append(np.sqrt(np.divide(np.sum(np.square(connections_transmission_probs)), connections_cnt)))
 
 data = np.array(data)
-write_pickle(data, 'pkl')
+write_pickle(data, 'data.pkl')
+write_pickle(connections_transmission_probs, 'conn_probs.pkl')
