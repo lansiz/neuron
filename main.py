@@ -6,9 +6,9 @@ import pickle
 # config
 rounds_to_run = 20 * 10 ** 4
 debug = False
-plasticity_begin = 10000
+plasticity_begin = 50000
 neurons_cnt = 5
-prob_step = .00001
+prob_step = .0001  # .00001
 connections_percent = .8
 
 
@@ -47,6 +47,14 @@ class Queue_(object):
             # print q.records.sum(),
             print q.rate(),
         print ''
+
+    @classmethod
+    def stats(cls):
+        v = 0
+        for q in Queue_.queues:
+            # print q.records.sum(),
+            v += q.rate()
+        return v
 
 
 def read_pickle(file_name):
@@ -125,13 +133,8 @@ for _ in range(int(rounds_to_run)):
             # print connections_to_propagate
             for i, row in enumerate(connections_to_propagate):
                 for j, propag in enumerate(row):
-                    if i == j:
-                        connections_transmission_history[i][j].propagate(False)
-                        continue
-                    if not neurons_to_fire[i]:  # only consider lastly chosen neurons
-                        connections_transmission_history[i][j].propagate(False)
-                        continue
-                    if not propag:  # connection from neuron i to j failed to propagate action potential
+                    # connection failt to propagate; propagate to itself; not the stimulated
+                    if (not propag) or (i == j) or (not neurons_to_fire[i]):
                         connections_transmission_history[i][j].propagate(False)
                         continue
                     # connections_transmission_cnt[i][j] += 1
@@ -150,9 +153,10 @@ for _ in range(int(rounds_to_run)):
             for j, old_prob in enumerate(row):
                 plasticity_func = connections_plasticity_funcs[i][j]
                 prob_to_be = plasticity_func(connections_transmission_history[i][j].rate())
-                if np.abs(prob_to_be - old_prob) < 0.001:
-                    pass
-                elif prob_to_be > old_prob:
+                # if np.abs(prob_to_be - old_prob) < 0.001:
+                #    pass
+                # elif prob_to_be > old_prob:
+                if prob_to_be > old_prob:
                     tmp_prob = old_prob + prob_step
                     if tmp_prob > 1:
                         connections_transmission_probs[i][j] = 1
@@ -167,7 +171,8 @@ for _ in range(int(rounds_to_run)):
     if debug: Queue_.display()
     Queue_.move_pointer()
     # data.append(np.sqrt(np.divide(np.sum(np.square(connections_transmission_probs)), connections_cnt)))
-    stat = np.mean(connections_transmission_probs)
+    # stat = np.mean(connections_transmission_probs)
+    stat = Queue_.stats()
     data.append(stat)
     if debug: print stat
 
