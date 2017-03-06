@@ -6,15 +6,15 @@ import pickle
 # config
 rounds_to_run = 20 * 10 ** 4
 debug = False
-plasticity_begin = 50000
+plasticity_begin = 100000
 neurons_cnt = 5
-prob_step = .0001  # .00001
+prob_step = .01  # .00001
 connections_percent = .8
 
 
 class Queue_(object):
     pointer = 0
-    history_max = 1000
+    history_max = 10000
     queues = []
     rounds = 1
 
