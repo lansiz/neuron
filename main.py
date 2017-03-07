@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 # config
-rounds_to_run = 20 * 10 ** 4
+rounds_to_run = 100010  # 20 * 10 ** 4
 debug = False
 plasticity_begin = 100000
 neurons_cnt = 5
@@ -54,7 +54,7 @@ class Queue_(object):
         for q in Queue_.queues:
             # print q.records.sum(),
             v += q.rate()
-        return v
+        return v / len(Queue_.queues)
 
 
 def read_pickle(file_name):
@@ -88,7 +88,8 @@ def plasticity_func_01(x):
 
 # ********* general *********
 rounds = 0
-data = []
+data1 = []
+data2 = []
 # ********* neurons *********
 neurons_fire_counts = np.zeros(neurons_cnt)
 neurons_checked_or_not = np.array([False] * neurons_cnt, dtype=np.bool)
@@ -96,7 +97,8 @@ neurons_checked_or_not = np.array([False] * neurons_cnt, dtype=np.bool)
 connections_cnt = neurons_cnt ** 2
 # connections_transmission_cnt = np.zeros(connections_cnt).reshape((neurons_cnt, neurons_cnt))
 connections_transmission_history = np.array(Queue_.create_queue(connections_cnt)).reshape((neurons_cnt, neurons_cnt))
-connections_transmission_probs = np.random.rand(connections_cnt).reshape((neurons_cnt, neurons_cnt))
+# connections_transmission_probs = np.random.rand(connections_cnt).reshape((neurons_cnt, neurons_cnt))
+connections_transmission_probs = np.ones(connections_cnt).reshape((neurons_cnt, neurons_cnt))
 for i in range(neurons_cnt):
     connections_transmission_probs[i][i] = 0
 print connections_transmission_probs
@@ -153,6 +155,7 @@ for _ in range(int(rounds_to_run)):
             for j, old_prob in enumerate(row):
                 plasticity_func = connections_plasticity_funcs[i][j]
                 prob_to_be = plasticity_func(connections_transmission_history[i][j].rate())
+                print rounds, i, j, old_prob, prob_to_be
                 # if np.abs(prob_to_be - old_prob) < 0.001:
                 #    pass
                 # elif prob_to_be > old_prob:
@@ -169,13 +172,14 @@ for _ in range(int(rounds_to_run)):
                     else:
                         connections_transmission_probs[i][j] = tmp_prob
     if debug: Queue_.display()
-    Queue_.move_pointer()
     # data.append(np.sqrt(np.divide(np.sum(np.square(connections_transmission_probs)), connections_cnt)))
-    # stat = np.mean(connections_transmission_probs)
-    stat = Queue_.stats()
-    data.append(stat)
-    if debug: print stat
+    stat1 = np.mean(connections_transmission_probs)
+    stat2 = Queue_.stats()
+    data1.append(stat1)
+    data2.append(stat2)
+    # if debug: print stat
+    Queue_.move_pointer()
 
-data = np.array(data)
-write_pickle(data, 'data.pkl')
-write_pickle(connections_transmission_probs, 'conn_probs.pkl')
+# data = np.array(data)
+# write_pickle(data, 'data.pkl')
+# write_pickle(connections_transmission_probs, 'conn_probs.pkl')
