@@ -2,13 +2,14 @@
 #  -*- coding: utf-8 -*-
 import numpy as np
 import pickle
+import plasticity
 
 # config
-rounds_to_run = 100010  # 20 * 10 ** 4
+rounds_to_run = 20 * 10 ** 4
 debug = False
 plasticity_begin = 100000
 neurons_cnt = 5
-prob_step = .01  # .00001
+prob_step = .00005
 connections_percent = .8
 
 
@@ -77,15 +78,6 @@ def write_pickle(o, file_name):
         return False
 
 
-# plasticity functions
-def plasticity_func_00(x):
-    return 0
-
-
-def plasticity_func_01(x):
-    return x
-
-
 # ********* general *********
 rounds = 0
 data1 = []
@@ -95,23 +87,24 @@ neurons_fire_counts = np.zeros(neurons_cnt)
 neurons_checked_or_not = np.array([False] * neurons_cnt, dtype=np.bool)
 # connections
 connections_cnt = neurons_cnt ** 2
-# connections_transmission_cnt = np.zeros(connections_cnt).reshape((neurons_cnt, neurons_cnt))
+connections_transmission_cnt = np.zeros(connections_cnt).reshape((neurons_cnt, neurons_cnt))
 connections_transmission_history = np.array(Queue_.create_queue(connections_cnt)).reshape((neurons_cnt, neurons_cnt))
-# connections_transmission_probs = np.random.rand(connections_cnt).reshape((neurons_cnt, neurons_cnt))
-connections_transmission_probs = np.ones(connections_cnt).reshape((neurons_cnt, neurons_cnt))
+connections_transmission_probs = np.random.rand(connections_cnt).reshape((neurons_cnt, neurons_cnt))
+# connections_transmission_probs = np.ones(connections_cnt).reshape((neurons_cnt, neurons_cnt))
 for i in range(neurons_cnt):
     connections_transmission_probs[i][i] = 0
+print 'initial conn transmission probs:'
 print connections_transmission_probs
-plasticity_funcs = [plasticity_func_01] * int(connections_cnt * connections_percent)
-plasticity_funcs = plasticity_funcs + [plasticity_func_00] * (connections_cnt - len(plasticity_funcs))
+plasticity_funcs = plasticity.funcs_sample(int(connections_cnt * connections_percent))
+plasticity_funcs = plasticity_funcs + [plasticity.plasticity_func_00] * (connections_cnt - len(plasticity_funcs))
 np.random.shuffle(plasticity_funcs)
 connections_plasticity_funcs = np.array(plasticity_funcs).reshape((neurons_cnt, neurons_cnt))
 for i in range(neurons_cnt):
-    connections_plasticity_funcs[i][i] = plasticity_func_00
+    connections_plasticity_funcs[i][i] = plasticity.plasticity_func_00
 print connections_plasticity_funcs
 # ********* stimuli *********
 stimuli_probs = np.random.rand(neurons_cnt)
-print 'stimuli_probs', stimuli_probs
+print 'initial stimuli probs', stimuli_probs
 
 # ********* trainning *********
 # for i in range(int(40000000)):
@@ -155,7 +148,7 @@ for _ in range(int(rounds_to_run)):
             for j, old_prob in enumerate(row):
                 plasticity_func = connections_plasticity_funcs[i][j]
                 prob_to_be = plasticity_func(connections_transmission_history[i][j].rate())
-                print rounds, i, j, old_prob, prob_to_be
+                if debug: print rounds, i, j, old_prob, prob_to_be
                 # if np.abs(prob_to_be - old_prob) < 0.001:
                 #    pass
                 # elif prob_to_be > old_prob:

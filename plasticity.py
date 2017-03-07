@@ -1,6 +1,7 @@
 # !/usr/bin/env python
 #  -*- coding: utf-8 -*-
 import random
+import numpy as np
 
 # plasticity functions
 def plasticity_func_00(x):
@@ -99,7 +100,6 @@ def funcs_sample(cnt):
 
 
 if __name__ == "__main__":
-    import numpy as np
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
     globals_ = globals().copy()
