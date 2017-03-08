@@ -3,5 +3,5 @@
 
 from brain import Brain
 from connection import Connections
-import plasticity import *
+from plasticity import *
 from stimuli import Stimuli

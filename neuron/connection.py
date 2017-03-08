@@ -3,6 +3,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import plasticity
+import copy
 
 
 class Queue_(object):
@@ -22,18 +23,19 @@ class Queue_(object):
 
 class Connections(object):
     def __init__(self, brain, ratio, qlen, step):
-        self.neurons_cnt = brain.get_neurons_cnt()
-        neurons_cnt = self.neurons_cnt
+        self.neurons_cnt = neurons_cnt = brain.neurons_cnt
         self.connections_cnt = neurons_cnt ** 2
+        self.brain = brain
         self.ratio = ratio
         self.step = step
-        queues = Queue_.create_queue(self.connections_cnt, qlen)
-        self.queues_pointer = 0
         self.qlen = qlen
+        self.data_trim = 20000
+        queues = Queue_.create_queue(self.connections_cnt, self.qlen)
+        self.queues_pointer = 0
         self.propagation_history = np.array(queues).reshape((neurons_cnt, neurons_cnt))
         self.propagation_rate = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
         # all connections initialized with zero transmission probability
-        self.transmission_probs = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
+        self.transmission_probs_origin = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
         self.transmission_probs_by_funcs = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
         # all connections initialized with disconnected functions
         self.plasticity_funcs = np.array([plasticity.PF00] * self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
@@ -52,13 +54,46 @@ class Connections(object):
             i_ -= 1
         # initialize data according to the sampled connections
         for i, j in connections_sampled:
-            self.transmission_probs[i][j] = np.random.rand()
+            self.transmission_probs_origin[i][j] = np.random.rand()
             self.plasticity_funcs[i][j] = plasticity.funcs_sample_one()
+        self.transmission_probs = self.transmission_probs_origin.copy()
         self.settings()
         # data collecting
+        self.data1 = []  # propagation_rate
+        self.data2 = []  # transmission_probs_by_funcs
+        self.data3 = []  # transmission_probs
+
+    def reset(self):
+        neurons_cnt = self.neurons_cnt
+        queues = Queue_.create_queue(self.connections_cnt, self.qlen)
+        self.propagation_history = np.array(queues).reshape((neurons_cnt, neurons_cnt))
+        self.queues_pointer = 0
+        self.propagation_rate = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
+        self.transmission_probs = self.transmission_probs_origin.copy()
+        self.transmission_probs_by_funcs = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
         self.data1 = []
         self.data2 = []
         self.data3 = []
+
+    def copy_to(self, brain):
+        neurons_cnt = self.neurons_cnt
+        if not (neurons_cnt == brain.neurons_cnt):
+            print 'ERROR: connections and brain are not in the same size'
+            return None
+        if brain.connections is not None:
+            print 'ERROR: the brain already has connections'
+            return None
+        new_conns = copy.copy(self)
+        queues = Queue_.create_queue(self.connections_cnt, self.qlen)
+        new_conns.propagation_history = np.array(queues).reshape((neurons_cnt, neurons_cnt))
+        new_conns.queues_pointer = 0
+        new_conns.propagation_rate = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
+        new_conns.transmission_probs = self.transmission_probs_origin.copy()
+        new_conns.transmission_probs_by_funcs = np.zeros(self.connections_cnt).reshape((neurons_cnt, neurons_cnt))
+        new_conns.data1 = []
+        new_conns.data2 = []
+        new_conns.data3 = []
+        return new_conns
 
     def settings(self):
         print 'neurons: %s ratio: %s connections: %s step: %s qlen: %s' % (
@@ -99,15 +134,21 @@ class Connections(object):
         return np.random.rand(self.connections_cnt).reshape((self.neurons_cnt, self.neurons_cnt)) < self.transmission_probs
 
     def collect_data(self):
-        self.data1.append(self.propagation_rate.mean())
+        self.data1.append(self.transmission_probs.mean())
         self.data2.append(self.transmission_probs_by_funcs.mean())
-        self.data3.append(self.transmission_probs.mean())
+        # self.data3.append(self.propagation_rate.mean())
+
+    def trim_data(self):
+        # self.data1.append(self.propagation_rate.mean())
+        self.data1 = self.data1[self.data_trim:]
+        self.data2 = self.data2[self.data_trim:]
+        self.data3 = self.data3[self.data_trim:]
 
     def plot_data(self):
         alpha = .8
         plt.plot(self.data1, alpha=alpha)
         plt.plot(self.data2, alpha=alpha)
-        plt.plot(self.data3, alpha=alpha)
+        # plt.plot(self.data3, alpha=alpha)
         plt.grid(True)
 
     def save_data(self):
@@ -118,7 +159,7 @@ class Connections(object):
         print self.propagation_rate
         print 'transmission probs by functions:'
         print self.transmission_probs_by_funcs.round(2)
-        print 'transmission probs'
+        print 'transmission probs:'
         print self.transmission_probs.round(2)
 
     @classmethod

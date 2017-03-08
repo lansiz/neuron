@@ -1,23 +1,24 @@
 # !/usr/bin/env python
 #  -*- coding: utf-8 -*-
 import numpy as np
+import datetime
 
 
 class Brain(object):
-    def __init__(self, cnt):
+    def __init__(self, cnt, name=''):
         self.neurons_cnt = cnt
         self.connections = None
         self.stimuli = None
-        self.neurons_fire_counts = np.zeros(self.neurons_cnt)
+        self.name_ = name
 
-    def get_neurons_cnt(self):
-        return self.neurons_cnt
-
-    def fire(self, rounds, plasticity_begin=100000):
+    def fire(self, rounds, plasticity_begin=70000):
+        dt_start = datetime.datetime.now()
+        print 'start:', dt_start.strftime('%Y%m%d %X')
         if (self.connections is None) or (self.stimuli is None):
-            print 'This brains has no connections or stimuli'
+            print 'This brain has no connections or stimuli'
             return
         neurons_cnt = self.neurons_cnt
+        self.neurons_fire_counts = np.zeros(neurons_cnt)
         rnd = 0
         for _ in range(int(rounds)):
             rnd += 1
@@ -56,3 +57,6 @@ class Brain(object):
             self.connections.move_pointer()
             self.connections.collect_data()
         self.connections.stats()
+        self.connections.trim_data()
+        dt_stop = datetime.datetime.now()
+        print 'stop:', dt_start.strftime('%Y%m%d %X'), dt_stop - dt_start
