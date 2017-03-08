@@ -96,11 +96,11 @@ for i in range(neurons_cnt):
 print 'initial conn transmission probs:'
 print connections_transmission_probs
 plasticity_funcs = plasticity.funcs_sample(int(connections_cnt * connections_percent))
-plasticity_funcs = plasticity_funcs + [plasticity.plasticity_func_00] * (connections_cnt - len(plasticity_funcs))
+plasticity_funcs = plasticity_funcs + [plasticity.PF00] * (connections_cnt - len(plasticity_funcs))
 np.random.shuffle(plasticity_funcs)
 connections_plasticity_funcs = np.array(plasticity_funcs).reshape((neurons_cnt, neurons_cnt))
 for i in range(neurons_cnt):
-    connections_plasticity_funcs[i][i] = plasticity.plasticity_func_00
+    connections_plasticity_funcs[i][i] = plasticity.PF00
 print connections_plasticity_funcs
 # ********* stimuli *********
 stimuli_probs = np.random.rand(neurons_cnt)
