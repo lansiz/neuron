@@ -150,6 +150,7 @@ class Connections(object):
         plt.plot(self.data2, alpha=alpha)
         # plt.plot(self.data3, alpha=alpha)
         plt.grid(True)
+        plt.show()
 
     def save_data(self):
         pass
@@ -163,7 +164,7 @@ class Connections(object):
         print self.transmission_probs.round(2)
 
     @classmethod
-    def grow_on(cls, brain, ratio=.5, qlen=10000, step=0.00001):
+    def grow_on(cls, brain, ratio=.5, qlen=10000, step=0.00005):
         # let brain know its connections
         conns = Connections(brain, ratio, qlen, step)
         brain.connections = conns
