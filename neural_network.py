@@ -43,11 +43,14 @@ class NeuralNetwork(object):
         # this method should be reimplemented in sub-class.
         self.strengthen_functions_m = np.where(self.gene.connections == 1, strengthen_functions.PF31, np.NaN)
 
-    def propagate_one_stimulus(self, stimulus, strengthen_rate=0.00005, debug=False):
+    def propagate_one_stimulus(self, stimu_pool, strengthen_rate=0.00005, debug=False):
         self.I += 1
-        X = stimulus[0]  # set of neurons, where evn stimulation are on and propagation are start from
-        Y_l = stimulus[1]  # list of set of neurons for multiple targets (propagations)
+        X = set([])
+        for stimulus, _ in stimu_pool.data:
+            X = X.union(stimulus)
         neurons_fired = X
+        if self.I == 9:
+            print(neurons_fired)
         neurons_newly_propagated = X
         # init the transmission history slots to 0
         for i in range(self.N):
@@ -66,12 +69,6 @@ class NeuralNetwork(object):
                         self.transmission_history_m[i][j].records[self.transmission_history_pointer] = 1
             neurons_fired = neurons_fired.union(neurons_propagated)
             neurons_newly_propagated = neurons_propagated
-        # record the score
-        Y_hat = neurons_fired  # the 'estimated' propagation target
-        if Y_hat in Y_l:
-            self.score_history.records[self.score_history_pointer] = 1
-        else:
-            self.score_history.records[self.score_history_pointer] = 0
         # strengthen the connections
         if self.I > self.transmission_history_len:  # start synapse strengthening after history records are filled
             for i in range(self.N):
@@ -106,7 +103,6 @@ class NeuralNetwork(object):
             print(self.connection_strength_m.round(4))
         # moving the pointer
         self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
-        self.score_history_pointer = (self.score_history_pointer + 1) % self.score_history_len
 
     def stats(self):
         connection_strength_m = np.where(self.connection_strength_m >= 0, self.connection_strength_m, 0)
@@ -122,11 +118,11 @@ if __name__ == "__main__":
     import matplotlib as mpl
     mpl.use('Agg', warn=False)
     import matplotlib.pyplot as plt
-    N = 5
-    S = 5
+    N = 8
+    S = 3
     stimu_pool = StimuliPool(N, S)
     g = Gene(N, .8)
-    print(' gene '.center(100, '-'))
+    print(' gene (connection matrix) '.center(100, '-'))
     g.info()
     nn = NeuralNetwork(g)
     nn.initialize_synapses_strength()
@@ -139,12 +135,11 @@ if __name__ == "__main__":
     print(nn.strengthen_functions_m)
     stats = []
     for _ in range(100000):
-        nn.propagate_one_stimulus(stimu_pool.pick_one(), strengthen_rate=0.00005)
-        # print(nn.stats())
-        # stats.append(nn.stats()['accuracy'])
+        print _
+        nn.propagate_one_stimulus(stimu_pool, strengthen_rate=0.00005)
         stats.append(nn.stats()['strength'])
     # print(stats)
-    print(' final strength matrix '.center(100, '-'))
+    print(' strength matrix at fixed point '.center(100, '-'))
     print(nn.connection_strength_m)
     plt.plot(stats)
     plt.savefig('./nn.png')

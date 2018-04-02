@@ -8,9 +8,8 @@ def seek_fixed_point(gene, stimu_pool, NN_class, I, strengthen_rate):
     nn.initialize_synapses_strength()
     nn.set_strengthen_functions()
     for i in range(I):
-        # pick one stimulus from pool
-        stimu = stimu_pool.pick_one()
-        nn.propagate_one_stimulus(stimu, strengthen_rate)
+        for stimulus in stimu_pool.data:
+            nn.propagate_one_stimulus(stimulus, strengthen_rate)
     return nn.stats()
     # {'connections_strengh': [1, 2, 3], 'accuracy': .3, 'other': 3}
 

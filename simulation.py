@@ -7,18 +7,23 @@ from stimulus import StimuliPool
 from gene import Gene
 
 # configs
-N = 4  # neurons number in a neural netowrk
-S = 5  # stimuli pool size
-G = 2  # generations of evolution
-P = 20  # population of neural network pool
-I = 10  # iterations of stimuli on neural network
+P = 3  # population of neural network pool
+N = 5  # neurons number in a neural netowrk
+S = 3  # stimuli pool size
+G = 3  # generations of evolution
+I = 2 * 10 ** 4   # iterations of stimuli on neural network
 strengthen_rate = 0.00005
 #
+print('#population: %s #neuron: %s #propagation: %s #generation: %s #iteration: %s lr: %s' % (
+    P, N, S, G, I, strengthen_rate))
 np.random.seed()
 stimu_pool = StimuliPool(N, S)
+print((' stimulation ').center(100, '-'))
+stimu_pool.info()
 env = Environment()
 # nn_pool = NeuralNetwork.creations(P, N)
 gene_pool = Gene.creations(P, N)
+
 for g in range(G):
     # One Generation
     print((' generation %s ' % g).center(100, '-'))

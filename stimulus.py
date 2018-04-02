@@ -13,42 +13,22 @@ class StimuliPool(object):
         whole_range = range(0, N)
         whole_set = set(whole_range)
         x_number_range = range(1, (N + 1) // 2)
-        y_number_range = range(0, (N + 1) // 2 - 1)
         self.data = []
         for _ in range(S):
             n_x = random.choice(x_number_range)
-            n_y = random.choice(y_number_range)
             x_set = set(random.sample(whole_range, n_x))
+            # to prevent large propgation
+            n_y = np.min((n_x, random.choice(range(N - n_x))))
             to_propagate_set = set(random.sample(whole_set - x_set, n_y))
             y_set = x_set.union(to_propagate_set)
             self.data.append([x_set, [y_set]])
             # print x_set, y_set
 
-        self.probs_a = self.distribution()
-        for i, XY_l in enumerate(self.data):
-            XY_l.append(self.probs_a[i])
-
-    def distribution(self):
-        probs_a = (np.random.randint(10, size=self.S) + 1).astype(np.float64)
-        probs_a = probs_a / probs_a.sum()
-        return probs_a
-
     def info(self):
         for i in self.data:
             print(i)
 
-    def pick_one(self):
-        # rejection sampling
-        while True:
-            one_stimulus = random.choice(self.data)
-            if one_stimulus[2] > np.random.rand():
-                return one_stimulus[:2]
-
 
 if __name__ == "__main__":
     pool = StimuliPool(20, 10)
-    print(pool.probs_a)
-    # for i in pool.data:
-    #    print i
-    for _ in range(100):
-        print(pool.pick_one())
+    pool.info()
