@@ -11,8 +11,8 @@ def PF00(x):
 
 
 def PF01(x):
-    '''y=1/3'''
-    return float(1) / 3
+    '''1/(1+exp(-10*(x-.5)))'''
+    return 1 / (1 + np.exp(-10 * (x - .5)))
 
 
 def PF02(x):
@@ -85,6 +85,11 @@ def PF29(x):
 def PF30(x):
     '''y=-x+1'''
     return -x + 1
+
+
+def PF31(x):
+    '''y=x+.5'''
+    return .2 * x + .5
 
 
 def funcs_pool_all():

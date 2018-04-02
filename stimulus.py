@@ -33,6 +33,10 @@ class StimuliPool(object):
         probs_a = probs_a / probs_a.sum()
         return probs_a
 
+    def info(self):
+        for i in self.data:
+            print(i)
+
     def pick_one(self):
         # rejection sampling
         while True:

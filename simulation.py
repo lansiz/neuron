@@ -21,7 +21,7 @@ env = Environment()
 gene_pool = Gene.creations(P, N)
 for g in range(G):
     # One Generation
-    print('----------------------------- Generation %s -----------------------------' % g)
+    print((' generation %s ' % g).center(100, '-'))
     # continiously stimulate NNs with randomly picked stimuli for I iterations
     stats_l = env.evaluate_fitness(gene_pool, stimu_pool, NeuralNetwork, I, strengthen_rate)
     # env.output_stats(nn_pool)
