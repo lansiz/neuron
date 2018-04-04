@@ -88,8 +88,13 @@ def PF30(x):
 
 
 def PF31(x):
-    '''y=x+.5'''
-    return .2 * x + .5
+    '''y=.8x+.1'''
+    return .8 * x + .1
+
+
+def PF32(x):
+    '''y=.9x+.05'''
+    return .9 * x + .05
 
 
 def funcs_pool_all():

@@ -7,10 +7,10 @@ from stimulus import StimuliPool
 from gene import Gene
 
 # configs
-P = 3  # population of neural network pool
-N = 5  # neurons number in a neural netowrk
-S = 3  # stimuli pool size
-G = 3  # generations of evolution
+P = 40  # population of neural network pool
+N = 7  # neurons number in a neural netowrk
+S = 1  # stimuli pool size
+G = 20 # generations of evolution
 I = 2 * 10 ** 4   # iterations of stimuli on neural network
 strengthen_rate = 0.00005
 #
@@ -31,8 +31,11 @@ for g in range(G):
     stats_l = env.evaluate_fitness(gene_pool, stimu_pool, NeuralNetwork, I, strengthen_rate)
     # env.output_stats(nn_pool)
     # env.store_stats(nn_pool)
-    print(stats_l[0]['accuracy'])
-    mating_pool = env.select_mating_pool(gene_pool, stats_l)
+    # print(stats_l[0]['accuracy'])
+    mating_pool = env.select_mating_pool(gene_pool, stats_l, strength_threshhold=.1)
+    if not mating_pool:
+        break
+    # print(mating_pool)
     new_gene_pool = env.reproduce_nn_pool(mating_pool, P)
     gene_pool = new_gene_pool
 # for nn in nn_pool: print nn.i
