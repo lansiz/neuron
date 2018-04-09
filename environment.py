@@ -28,7 +28,7 @@ class Environment(object):
         return [self.worker_pool.apply_async(
             seek_fixed_point, (gene, stimu_pool, NN_class, I, strengthen_rate)).get() for gene in gene_pool]
 
-    def select_mating_pool(self, nn_pool, stats_l, mating_pool_size=1000, strength_threshhold=.0):
+    def build_new_gene_pool(self, P, nn_pool, stats_l, mating_pool_size=1000, strength_threshhold=.0):
         # combine genes and its fittness stats
         fit_data = []
         for gene, stat in zip(nn_pool, stats_l):
@@ -36,28 +36,69 @@ class Environment(object):
             fit_data.append(stat)
 
         # perish those with zero accuracy
+        '''
         fit_data = filter(lambda x: x['accuracy'] > 0, fit_data)
         # if no gene could scores, just end the evolution
         if not len(fit_data):
+            print('all genes extincted')
             return None
+        '''
 
         # statistical ouput before doing anything
+        # accuracy stats
         accuracy_a = np.array([d['accuracy'] for d in fit_data])
         print('accurcy stats - count: %s max: %s min: %s mean: %s std: %s' % (
             accuracy_a.shape[0], accuracy_a.max().round(4), accuracy_a.min().round(4),
-            accuracy_a.mean().round(4), accuracy_a.std().round(4)))
+            accuracy_a.mean().round(4), accuracy_a.var().round(4)))
+        # strength matrix stats
         strength_a = np.array([])
         for d in fit_data:
             strength_a = np.concatenate((strength_a, d['strength_matrix'].flatten()))
         strength_a = strength_a[strength_a >= 0]
+        if not strength_a.shape[0]:  # no connections, quit evolution
+            print('all synaptic connections extincted')
+            return None
         print('strength stats - count: %s max: %s min: %s mean: %s std: %s' % (
             strength_a.shape[0], strength_a.max().round(4), strength_a.min().round(4),
-            strength_a.mean().round(4), strength_a.std().round(4)))
+            strength_a.mean().round(4), strength_a.var().round(4)))
 
+        return self.selection(fit_data, strength_threshhold)
 
-        # normalize accuracy for pool selection
+    def selection(self, fit_data, strength_threshhold):
+        # for the gene with best accuracy, find out its strongest and weakest connections.
+        fit_data = sorted(fit_data, key=lambda x: x['accuracy'], reverse=True)
+        the_best = fit_data[0]
+        # gene = the_best['gene'] 
+        strength_matrix = the_best['strength_matrix']
+        strength_max = strength_matrix.max()
+        location_max = np.where(strength_matrix == strength_max)
+        max_i = location_max[0][0]
+        max_j = location_max[1][0]
+        '''
+        strength_min = strength_matrix.min()
+        location_min = np.where(strength_matrix == strength_min)
+        min_i = location_min[0][0]
+        min_j = location_min[1][0]
+        '''
+
+        # prevail the strongest connection and perish the weakest connection
+        for d in fit_data:
+            gene = d['gene']
+            gene.connections[max_i][max_j] = 1
+            gene.connections[max_j][max_i] = 0
+            # gene.connections[min_i][min_j] = 0
+
+        # perish connections with weak strength from gene
         for i in fit_data:
-           i['accuracy'] /= accuracy_a.max()
+            temp = i['strength_matrix'] >= strength_threshhold
+            i['gene'].connections &= temp
+            i['gene'].connections_number = i['gene'].connections.sum()
+
+        return [i['gene'] for i in fit_data]
+
+    def selection_1(self, fit_data, strength_threshhold):
+        # normalize accuracy for pool selection for i in fit_data:
+        i['accuracy'] /= accuracy_a.max()
 
         # pool selection 
         mating_pool = []
@@ -73,12 +114,10 @@ class Environment(object):
             i['gene'].connections &= temp
             i['gene'].connections_number = i['gene'].connections.sum()
 
-        return [i['gene'] for i in mating_pool]
+        # mating pool for reproduction
+        mating_pool = [i['gene'] for i in mating_pool]
 
-    def reproduce_nn_pool(self, mating_pool, P):
-        '''
-        Sample two parents from mating pool, reproduce children and impose muatation on the newborn.
-        '''
+        # Sample two parents from mating pool, reproduce children and impose muatation on the newborn.
         gene_pool = []
         for _ in range(P):
             new_gene = Gene.crossover(random.sample(mating_pool, 2)) 

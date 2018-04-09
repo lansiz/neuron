@@ -9,21 +9,23 @@ N = 10
 S = 2
 stimu_pool = StimuliPool(N, S)
 g = Gene(N, .5)
-'''
-stimu_pool.data = [[set([1]), [set([1,2])]]]
+stimu_pool.data = [[set([0,1,2,3,4,5,6,7]), [set([0, 6])]]]
 g.connections = np.array([
-        [0,0,0,0,0,0,1],
-        [1,0,1,0,1,0,0],
-        [1,0,0,0,0,0,0],
-        [0,0,0,0,0,1,0],
-        [0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,1],
-        [0,1,0,0,0,0,0]])
-'''
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,0,0,0,1],
+        [0,0,0,0,0,0,0,0,0,0]])
+g.connections_number = g.connections.sum()
 print(' gene (connection matrix) '.center(100, '-'))
 g.info()
 nn = NeuralNetwork(g)
-nn.initialize_synapses_strength(.5, .1)
+nn.initialize_synapses_strength(.2, .1)
 nn.set_strengthen_functions()
 print(' strength matrix to start '.center(100, '-'))
 print(nn.connection_strength_m_origin.round(4))

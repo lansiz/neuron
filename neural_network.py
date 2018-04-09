@@ -10,7 +10,7 @@ class Queue_(object):
 
 
 class NeuralNetwork(object):
-    def __init__(self, gene, transmission_history_len=10**4, score_history_len=10**4):
+    def __init__(self, gene, transmission_history_len=10**3):
         self.gene = gene
         self.N = self.gene.connections.shape[0]
         self.connections_number = self.gene.connections.sum()
@@ -88,7 +88,10 @@ class NeuralNetwork(object):
             for i in neurons_newly_propagated:
                 for j, strength in enumerate(self.connection_strength_m[i]):
                     # strength entry is either -1 (non-existence) or between [0, 1]
-                    if strength > np.random.rand():
+                    if strength < 0:
+                        continue
+                    r = np.random.rand()
+                    if strength > r:
                         # add the newly propagated neuron
                         neurons_propagated.add(j)
                         # all propagated connections are recorded
@@ -145,6 +148,8 @@ class NeuralNetwork(object):
                     neurons_propagated = set([])
                     for i in neurons_newly_propagated:
                         for j, strength in enumerate(self.connection_strength_m[i]):
+                            if strength < 0:
+                                continue
                             if strength > np.random.rand():
                                 neurons_propagated.add(j)
                     neurons_newly_propagated = neurons_propagated - neurons_fired
@@ -165,11 +170,11 @@ class NeuralNetwork(object):
         return transmission_frequency.round(4)
 
     def stats(self):
-        # connection_strength_m = np.where(self.connection_strength_m >= 0, self.connection_strength_m, 0)
+        connection_strength_m = np.where(self.connection_strength_m >= 0, self.connection_strength_m, 0)
         return {
             'accuracy': self.accuracy,
-            'strength_matrix': self.connection_strength_m}
-            # 'strength': connection_strength_m.sum() / self.connections_number}
+            'strength_matrix': self.connection_strength_m,
+            'strength': connection_strength_m.sum() / self.connections_number}
 
 
 if __name__ == "__main__":
