@@ -97,6 +97,11 @@ def PF32(x):
     return .9 * x + .05
 
 
+def PF33(x):
+    ''''''
+    return .5 * np.sin(-1 * np.pi * (x + .5)) + .5
+
+
 def funcs_pool_all():
     globals_ = globals().copy()
     globals_ = [(k, globals_[k]) for k in sorted(globals_.keys())]
