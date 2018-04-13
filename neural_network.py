@@ -48,13 +48,13 @@ class NeuralNetwork(object):
         self.connection_strength_m = np.where(self.gene.connections == 1, tmp_m, -1)
         self.connection_strength_m_origin = self.connection_strength_m.copy()
 
-    def set_strengthen_functions(self):
+    def set_strengthen_functions(self, pf=strengthen_functions.PF34):
         '''
         initialized N ** 2 strengthen functions accroding to the gene's connections matrix
         the functions of no-exisiting synapse are set to NaN.
         this method should be reimplemented in sub-class.
         '''
-        self.strengthen_functions_m = np.where(self.gene.connections == 1, strengthen_functions.PF32, '----')
+        self.strengthen_functions_m = np.where(self.gene.connections == 1, pf, '----')
 
     def show_strengthen_functions_matrix(self):
         ''' display strengthen functions in prettier matrix '''
@@ -132,31 +132,6 @@ class NeuralNetwork(object):
             print(self.connection_strength_m.round(4))
         # moving the pointer
         self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
-
-    def evaluate_accuracy(self, stimu_pool, trys_per_stimulus=10**4):
-        '''
-        test each stimlus in the pool form try_per_stimulus times and compute the accuracy
-        '''
-        trys = .0
-        scores = .0
-        for X, Y_l in stimu_pool.data:
-            for _ in range(trys_per_stimulus):
-                trys += 1
-                neurons_fired = X
-                neurons_newly_propagated = X
-                while len(neurons_newly_propagated):
-                    neurons_propagated = set([])
-                    for i in neurons_newly_propagated:
-                        for j, strength in enumerate(self.connection_strength_m[i]):
-                            if strength < 0:
-                                continue
-                            if strength > np.random.rand():
-                                neurons_propagated.add(j)
-                    neurons_newly_propagated = neurons_propagated - neurons_fired
-                    neurons_fired = neurons_fired.union(neurons_propagated)
-                if neurons_fired in Y_l:
-                    scores += 1
-        self.accuracy = scores / trys 
 
     def get_transmission_frequency(self):
         '''

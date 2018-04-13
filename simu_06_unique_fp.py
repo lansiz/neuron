@@ -9,17 +9,6 @@ N = 10
 S = 2
 stimu_pool = StimuliPool(N, S)
 g = Gene(N, .5)
-'''
-stimu_pool.data = [[set([1]), [set([1,2])]]]
-g.connections = np.array([
-        [0,0,0,0,0,0,1],
-        [1,0,1,0,1,0,0],
-        [1,0,0,0,0,0,0],
-        [0,0,0,0,0,1,0],
-        [0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,1],
-        [0,1,0,0,0,0,0]])
-'''
 print(' gene (connection matrix) '.center(100, '-'))
 g.info()
 nn = NeuralNetwork(g)

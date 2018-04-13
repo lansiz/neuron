@@ -77,6 +77,16 @@ def PF11(x):
     return .5 * np.sin(-2 * np.pi * x) + .5
 
 
+def PF12(x):
+    u'''y=.5sin(4πx)+.5'''
+    return .5 * np.sin(4 * np.pi * x) + .5
+
+
+def PF13(x):
+    u'''y=.5sin(8πx)+.5'''
+    return .5 * np.sin(8 * np.pi * x) + .5
+
+
 def PF29(x):
     '''y=x'''
     return x
@@ -98,8 +108,13 @@ def PF32(x):
 
 
 def PF33(x):
-    ''''''
+    u'''.5*sin(-(x+.5)π)+.5'''
     return .5 * np.sin(-1 * np.pi * (x + .5)) + .5
+
+
+def PF34(x):
+    '''trimmed sigmoid'''
+    return (np.exp(3 * x)/(1 + np.exp(3 * x)) - .5) * 1.8 + .05
 
 
 def funcs_pool_all():
@@ -134,6 +149,8 @@ def print_name(arr):
 
 
 if __name__ == "__main__":
+    import matplotlib as mpl
+    mpl.use('Agg', warn=False)
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
     plasticity_funcs = funcs_pool_all()
