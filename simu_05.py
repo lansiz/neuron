@@ -40,7 +40,7 @@ for _ in range(60000):
     nn.propagate_once(stimu_pool, strengthen_rate=0.001)
     strength_stats.append(nn.stats()['strength'])
     if _ % 1000 == 0:
-        nn.evaluate_accuracy(stimu_pool)
+        # nn.evaluate_accuracy(stimu_pool)
         # accuracy_stats.append(nn.stats()['accuracy'])
         strength_stats.append(nn.stats()['strength'])
 print(' strength matrix at fixed point '.center(100, '-'))
@@ -48,6 +48,7 @@ print(nn.connection_strength_m.round(4))
 print(' transmission frequency at fixed point '.center(100, '-'))
 print(nn.get_transmission_frequency())
 print(' srength '.center(100, '-'))
-print(nn.accuracy)
+# print(nn.accuracy)
 plt.plot(strength_stats)
-plt.savefig('./nn.png')
+plt.savefig('./simu_05.png')
+

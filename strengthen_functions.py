@@ -87,6 +87,30 @@ def PF13(x):
     return .5 * np.sin(8 * np.pi * x) + .5
 
 
+def PF14(x):
+    u'''0 & y=3x-1 & 1'''
+    if x < (1. / 3):
+        return 0
+    elif x < (2. / 3):
+        return 3 * x - 1
+    else:
+        return 1
+
+
+def PF15(x):
+    u'''discontinious'''
+    if x < .2:
+        return .2 * x
+    elif x < .4:
+        return .2 * x + .2
+    elif x < .6:
+        return .2 * x + .4
+    elif x < .8:
+        return .2 * x + .6
+    else:
+        return .2 * x + .8
+
+
 def PF29(x):
     '''y=x'''
     return x
@@ -114,7 +138,7 @@ def PF33(x):
 
 def PF34(x):
     '''trimmed sigmoid'''
-    return (np.exp(3 * x)/(1 + np.exp(3 * x)) - .5) * 1.8 + .05
+    return (np.exp(3 * x) / (1 + np.exp(3 * x)) - .5) * 1.8 + .05
 
 
 def funcs_pool_all():
@@ -175,8 +199,8 @@ if __name__ == "__main__":
         ax.set_yticks(ticks)
         ax.set_yticklabels(ylabels, rotation=0)
         ax.set_title(func.__doc__, fontsize=10)
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1)
+        # ax.set_xlim(0, 1)
+        # ax.set_ylim(0, 1)
         ax.grid(True)
     gs.tight_layout(fig, rect=[0, 0, 1, 0.975])
     # fig.suptitle('plasticity functions', fontsize=12)
