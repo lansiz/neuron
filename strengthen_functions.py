@@ -141,6 +141,11 @@ def PF34(x):
     return (np.exp(3 * x) / (1 + np.exp(3 * x)) - .5) * 1.8 + .05
 
 
+def PF35(x):
+    '''trimmed sigmoid'''
+    return (np.exp(5 * x) / (1 + np.exp(5 * x)) - .5) * 1.8 + .05
+
+
 def funcs_pool_all():
     globals_ = globals().copy()
     globals_ = [(k, globals_[k]) for k in sorted(globals_.keys())]

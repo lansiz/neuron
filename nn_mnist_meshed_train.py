@@ -7,7 +7,7 @@ import argparse
 import matplotlib as mpl
 mpl.use('Agg', warn=False)
 import matplotlib.pyplot as plt
-from nn_mnist import NeuralNetwork
+from nn_mnist_meshed import NeuralNetwork
 import mnist
 import utils
 

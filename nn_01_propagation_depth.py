@@ -30,7 +30,9 @@ def pf_factory(a, b, c):
     return pf
 
 
-for pf, color in zip([pf_factory(i, 1.8, .05) for i in range(1, 8)], ('red', 'gray', 'blue', '#CD8500', 'green', 'purple', '#C5C1AA')):
+for pf, color in zip(
+    [pf_factory(i, 1.8, .05) for i in range(1, 8)],
+    ('red', 'gray', 'blue', '#CD8500', 'green', 'purple', '#C5C1AA')):
     frequency_l = []
     for i in range(10):
         nn = NeuralNetwork(connection_matrix, transmission_history_len=10**3)
