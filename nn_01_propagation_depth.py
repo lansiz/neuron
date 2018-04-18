@@ -1,6 +1,6 @@
 import numpy as np
 from nn import NeuralNetwork
-import strengthen_functions
+# import strengthen_functions
 '''
 import matplotlib as mpl
 mpl.use('Agg', warn=False)
@@ -10,17 +10,18 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots(1, 1, figsize=(6, 3))
 
 connection_matrix = np.array([
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 # pf = strengthen_functions.PF34
 
 
@@ -52,7 +53,8 @@ for pf, color in zip(
             frequency_matrix[6][7],
             frequency_matrix[7][8],
             frequency_matrix[8][9],
-            frequency_matrix[9][10]])
+            frequency_matrix[9][10],
+            frequency_matrix[10][11]])
     frequency_a = np.array(frequency_l).mean(axis=0)
     for l in frequency_l:
         ax.plot(l, 'o', color=color, alpha=.6, zorder=1)
