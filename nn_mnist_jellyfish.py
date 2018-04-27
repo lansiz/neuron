@@ -15,8 +15,7 @@ class NeuralNetwork(object):
         strength_std=.1, transmission_history_len=10**3, image_scale=28):
         self.sensors_number = image_scale ** 2
         self.propagation_depth = propagation_depth
-        self.connections_matrix = np.random.normal(
-            strength_mean, strength_std, (self.sensors_number, self.propagation_depth))
+        self.connections_matrix = np.random.normal(strength_mean, strength_std, (self.sensors_number, self.propagation_depth))
         self.strength_function = strength_function
         self.strengthen_rate = 1. / transmission_history_len
         # each synapse has a recording queue for its transmission in the tempral order.

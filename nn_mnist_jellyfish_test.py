@@ -25,7 +25,6 @@ test_number = int(args.test_number)
 method = int(args.method)
 train_pickle_file_name = str(args.train_pickle_file_name)
 iterations = int(args.iterations)
-# print('train', train_number, 'test', test_number)
 
 imgs_train = mnist.get_imgs_by_number(train_number)
 imgs_test = mnist.get_imgs_by_number(test_number)
@@ -48,4 +47,4 @@ for _ in range(iterations):
         stats_test = np.array(strength_l).sum()
     if stats_train > stats_test:
         score += 1
-print('%s: %s %s %s %s %s' % (datetime.datetime.now().strftime('%m-%d %H:%M'), method, train_pickle_file_name, train_number, test_number, score / iterations))
+print('%s %s %s' % (train_number, test_number, score / iterations))

@@ -37,15 +37,14 @@ nn.initialize_synapses_strength()
 nn.set_strengthen_functions()
 
 imgs = mnist.get_imgs_by_number(mnist_number)
-print('train NN with mmist number-%s images from %s-sample pool' % (mnist_number, len(imgs)))
 img = imgs[100][1]
+stimulated = set(np.where(img.flatten() > 0)[0])
 
 start_time = datetime.datetime.now()
 
 plotting_strength = False
 if plotting_strength: strength_stats = []
 for i in range(iterations):
-    stimulated = set(np.where(img.flatten() > 0)[0])
     nn.propagate_once(stimulated, debug=False)
     if plotting_strength:
         if i % 10 == 0: strength_stats.append(nn.stats()['strength'])
@@ -56,6 +55,6 @@ print('stop time: ', end_time)
 
 if plotting_strength:
     plt.plot(strength_stats)
-    plt.savefig('./nn_mnist_strength_%s.png' % affix)
-utils.write_pickle(nn.connection_strength_m, 'nn_mnist_strength_%s.pkl' % affix)
+    plt.savefig('./nn_mnist_meshed_%s.png' % affix)
+utils.write_pickle(nn.connection_strength_m, './pkl/nn_mnist_meshed_%s.pkl' % affix)
 

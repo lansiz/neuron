@@ -22,13 +22,13 @@ nn = NeuralNetwork()
 
 imgs = mnist.get_imgs_by_number(mnist_number)
 img = imgs[100][1]
+stimulated = set(np.where(img.flatten() > 0)[0])
 
 start_time = datetime.datetime.now()
 
-plotting_strength = True
+plotting_strength = False
 if plotting_strength: strength_stats = []
 for i in range(iterations):
-    stimulated = set(np.where(img.flatten() > 0)[0])
     nn.propagate_once(stimulated)
     if plotting_strength:
         if i % 10 == 0: strength_stats.append(nn.stats()['strength'])
@@ -40,4 +40,5 @@ print('stop time: ', end_time)
 if plotting_strength:
     plt.plot(strength_stats)
     plt.savefig('./nn_mnist_jellyfish_%s.png' % mnist_number)
-utils.write_pickle(nn.connections_matrix, 'nn_mnist_jellyfish_%s.pkl' % mnist_number)
+utils.write_pickle(nn.connections_matrix, './pkl/nn_mnist_jellyfish_%s.pkl' % mnist_number)
+
