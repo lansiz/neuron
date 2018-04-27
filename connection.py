@@ -29,21 +29,13 @@ class Connection(object):
                 self.transmission_history.records[self.transmission_history_pointer] = 1
         if self.I > self.transmission_history_len:
             frequency = self.transmission_history.records.sum() / float(self.transmission_history_len)
-            strength_to_be = self.strengthen_function(frequency)
+            target_strength = self.strengthen_function(frequency)
             current_strength = self.strength
 
-            if strength_to_be > current_strength:
-                tmp_strength = current_strength + self.strengthen_rate
-                if tmp_strength > 1:
-                    self.strength = 1
-                else:
-                    self.strength = tmp_strength
+            if target_strength > current_strength:
+                self.strength = np.min((current_strength + self.strengthen_rate, 1))
             else:
-                tmp_strength = current_strength - self.strengthen_rate
-                if tmp_strength < 0:
-                    self.strength = 0
-                else:
-                    self.strength = tmp_strength
+                self.strength = np.max((0, current_strength - self.strengthen_rate))
 
         self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
 

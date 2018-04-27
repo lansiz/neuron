@@ -19,8 +19,6 @@ connection_matrix = np.array([
     [1, 0, 0, 0, 0, 0, 0, 1],
     [0, 0, 0, 0, 0, 1, 0, 0],
     [1, 0, 1, 0, 0, 0, 0, 0]])
-print(' connection matrix '.center(100, '-'))
-print(connection_matrix)
 neurons_stimulated_probs = np.random.normal(.6, .1, N)
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))

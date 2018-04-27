@@ -99,16 +99,10 @@ def PF14(x):
 
 def PF15(x):
     u'''discontinious'''
-    if x < .2:
-        return .2 * x
-    elif x < .4:
-        return .2 * x + .2
-    elif x < .6:
-        return .2 * x + .4
-    elif x < .8:
-        return .2 * x + .6
+    if x < .5:
+        return 1.25 * x + .2
     else:
-        return .2 * x + .8
+        return 1.25 * x - .2
 
 
 def PF29(x):

@@ -102,26 +102,16 @@ class NeuralNetwork(object):
                     if not self.connection_matrix[i][j]:
                         continue
                     # compute the to-be strength given the frequency by the transimission history
-                    frequency = \
-                        self.transmission_history_m[i][j].records.sum() / float(self.transmission_history_len)
-                    strengthen_func = self.strengthen_functions_m[i][j]
-                    strength_to_be = strengthen_func(frequency)
+                    frequency = self.transmission_history_m[i][j].records.sum() / float(self.transmission_history_len)
+                    target_strength = self.strengthen_functions_m[i][j](frequency)
                     current_strength = self.connection_strength_m[i][j]
 
                     # if the to-be strength > crurent one, the strength should be increased by a little bit.
                     # otherwise, descrease it by a little bit.
-                    if strength_to_be > current_strength:
-                        tmp_strength = current_strength + strengthen_rate
-                        if tmp_strength > 1:
-                            self.connection_strength_m[i][j] = 1
-                        else:
-                            self.connection_strength_m[i][j] = tmp_strength
+                    if target_strength > current_strength:
+                        self.connection_strength_m[i][j] = np.min((current_strength + strengthen_rate, 1))
                     else:
-                        tmp_strength = current_strength - strengthen_rate
-                        if tmp_strength < 0:
-                            self.connection_strength_m[i][j] = 0
-                        else:
-                            self.connection_strength_m[i][j] = tmp_strength
+                        self.connection_strength_m[i][j] = np.max((0, current_strength - strengthen_rate))
 
         # forward the pointer
         self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
