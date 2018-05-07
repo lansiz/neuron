@@ -43,7 +43,7 @@ class NeuralNetwork(object):
         tmp_m = np.where(tmp_m <= 1, tmp_m, 1)
         tmp_m = np.where(tmp_m >= 0, tmp_m, 0)
         self.connection_strength_m = np.where(self.connection_matrix == 1, tmp_m, -1)
-        self.connection_strength_m_origin = self.connection_strength_m.copy()
+        # self.connection_strength_m_origin = self.connection_strength_m.copy()
 
     def set_strengthen_functions(self, pf=strengthen_functions.PF34):
         '''
@@ -133,6 +133,23 @@ class NeuralNetwork(object):
             'strength_matrix': self.connection_strength_m,
             'strength': connection_strength_m.sum() / self.connections_number}
 
+    def propagate_test(self, neurons_stimulated):
+        neurons_fired = neurons_stimulated
+        neurons_newly_propagated = neurons_fired
+        connections_propagated = 0
+        while len(neurons_newly_propagated):
+            neurons_propagated = set([])
+            for i in neurons_newly_propagated:
+                for j, strength in enumerate(self.connection_strength_m[i]):
+                    if strength < 0:
+                        continue
+                    r = np.random.rand()
+                    if strength > r:
+                        neurons_propagated.add(j)
+                        connections_propagated += 1
+            neurons_newly_propagated = neurons_propagated - neurons_fired
+            neurons_fired = neurons_fired.union(neurons_propagated)
+        return connections_propagated
 
 if __name__ == "__main__":
     pass
