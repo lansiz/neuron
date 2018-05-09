@@ -3,10 +3,8 @@ import multiprocessing
 from nn import NeuralNetwork
 from gene import Gene
 import strengthen_functions
-'''
 import matplotlib as mpl
 mpl.use('Agg', warn=False)
-'''
 import matplotlib.pyplot as plt
 
 N = 20
@@ -16,7 +14,7 @@ connection_matrix = np.zeros(N ** 2).reshape((N, N))
 for i in range(N-1):
     connection_matrix[i][i + 1] = 1
 
-a = 13
+a = 3
 pf = lambda x: (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * 1.8 + .05
 
 def seek_fp(x): 
@@ -33,6 +31,7 @@ def seek_fp(x):
     for _ in range(10000):
         neurons_stimulated = set([0])
         l.append(nn.propagate_test(neurons_stimulated))
+    print l
     return np.array(l)
 
 worker_pool = multiprocessing.Pool(processes=4)
