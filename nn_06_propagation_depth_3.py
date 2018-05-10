@@ -21,6 +21,7 @@ for i in range(N-1):
 
 pf = lambda x: (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * 1.8 + .05
 
+
 def seek_fp(x, a): 
     nn = NeuralNetwork(connection_matrix, transmission_history_len=10**4)
     nn.set_strengthen_functions(pf)
@@ -32,10 +33,11 @@ def seek_fp(x, a):
             neurons_stimulated = set([])
         nn.propagate_once(neurons_stimulated)
     l = []
-    for _ in range(50000):
+    for _ in range(100000):
         neurons_stimulated = set([0])
         l.append(nn.propagate_test(neurons_stimulated))
     return np.array(l)
+
 
 xs = np.linspace(0, 1, trails)
 
