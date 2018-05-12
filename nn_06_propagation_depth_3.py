@@ -22,7 +22,7 @@ for i in range(N-1):
 pf = lambda x: (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * 1.8 + .05
 
 
-def seek_fp(x, a): 
+def seek_fp(x, a):
     nn = NeuralNetwork(connection_matrix, transmission_history_len=10**4)
     nn.set_strengthen_functions(pf)
     nn.initialize_synapses_strength(.5, .1)
