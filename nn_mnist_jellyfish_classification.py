@@ -12,18 +12,25 @@ import utils
 
 # the number of 0~9 to train NN with
 parser = argparse.ArgumentParser()
-parser.add_argument('-i', action="store", dest="iterations", default=10000)
+parser.add_argument('-i', action="store", dest="iterations", default=30000)
+parser.add_argument('-j', action="store", dest="num", default=-1)
 args = parser.parse_args()
 iterations = int(args.iterations)
-# print('train', train_number, 'test', test_number)
+num = int(args.num)
 
-imgs = mnist.get_imgs_by_number()
+if num >= 0:
+    imgs = mnist.get_imgs_by_number(num)
+else:
+    imgs = mnist.get_imgs_by_number()
+
 strength_matrix_l = [utils.read_pickle('pkl/nn_mnist_jellyfish_' + str(i) + '.pkl') for i in range(10)]
 
 correct = .0
-for _ in range(iterations):
-    label, img = random.choice(imgs)
-    scores_a = np.array([len(NeuralNetwork.validate(img, strength_matrix)[0]) for strength_matrix in strength_matrix_l])
-    if scores_a[label] == scores_a.max():
-        correct += 1
-print(correct / iterations)
+trails = .0
+# for label, img in imgs[:iterations]:
+for label, img in imgs[:iterations]:
+    scores_a = np.array([NeuralNetwork.validate(img, strength_matrix) for strength_matrix in strength_matrix_l])
+    if scores_a[label] == scores_a.max(): correct += 1
+    trails += 1
+
+print(correct / trails)
