@@ -44,7 +44,7 @@ def read(dataset = "training", path = "."):
 
 def get_imgs_by_number(num=None):
     imgs = read()
-    if not num:
+    if num is None:
         imgs = [i for i in imgs]
     else:
         imgs = [i for i in imgs if i[0] == num]
