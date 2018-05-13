@@ -33,7 +33,7 @@ def seek_fp(x, a):
             neurons_stimulated = set([])
         nn.propagate_once(neurons_stimulated)
     l = []
-    for _ in range(200000):
+    for _ in range(300000):
         neurons_stimulated = set([0])
         l.append(nn.propagate_test(neurons_stimulated))
     return np.array(l)
