@@ -34,10 +34,10 @@ class NeuralNetwork(object):
 
         print('#sensors: %s #tentacle: %s #PF: %s' % ( self.sensors_number, self.propagation_depth, self.strength_function))
 
-    def propagate_once(self, mnist_img):
+    def propagate_once(self, mnist_img, gray_max=255.):
         self.I += 1
-        mnist_img = mnist_img / 255.
-        stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(28 ** 2))[0])
+        mnist_img = mnist_img / gray_max
+        stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
 
         # init the transmission history slots to 0
         for i in range(self.sensors_number):
@@ -68,11 +68,11 @@ class NeuralNetwork(object):
         self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
 
     @classmethod
-    def validate(cls, mnist_img, connections_matrix):
+    def validate(cls, mnist_img, connections_matrix, gray_max=255.):
         connections_propagated = 0
         propagation_depth = connections_matrix.shape[1]
-        mnist_img = mnist_img / 255
-        stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(28 ** 2))[0])
+        mnist_img = mnist_img / gray_max
+        stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
         # propagate the stimulus
         for i in stimulated_neurons:
             for j in range(propagation_depth):
