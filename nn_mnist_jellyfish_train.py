@@ -19,6 +19,8 @@ args = parser.parse_args()
 mnist_number = int(args.mnist_number)
 iterations = int(args.iterations)
 
+# images choice indexes = [181, 100, 333, 100, 3282, 5239, 5070, 893, 2117, 5712]
+
 pf = lambda x: (1 / (1 + np.exp(-1 * 10 * x)) - .5) * 1.8 + .05
 nn = NeuralNetwork(strength_function=pf)
 
