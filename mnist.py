@@ -42,13 +42,15 @@ def read(dataset = "training", path = "."):
     for i in range(len(lbl)):
         yield get_img(i)
 
-def get_imgs_by_number(num=None):
-    imgs = read()
+
+def get_imgs_by_number(num=None, dataset='training'):
+    imgs = read(dataset)
     if num is None:
         imgs = [i for i in imgs]
     else:
         imgs = [i for i in imgs if i[0] == num]
     return imgs
+
 
 def show(image):
     """

@@ -1,7 +1,7 @@
 import numpy as np
 import multiprocessing
 from nn import NeuralNetwork
-from gene import Gene
+# from gene import Gene
 import strengthen_functions
 '''
 import matplotlib as mpl
