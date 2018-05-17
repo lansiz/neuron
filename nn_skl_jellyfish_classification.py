@@ -24,7 +24,6 @@ strength_matrix_l = [utils.read_pickle('pkl/nn_mnist_jellyfish_' + str(i) + '.pk
 
 correct = .0
 trails = .0
-# for label, img in imgs[:iterations]:
 for label, img in imgs[:iterations]:
     scores_a = np.array([NeuralNetwork.validate(img, strength_matrix, gray_max=16) for strength_matrix in strength_matrix_l])
     if label == random.choice(np.where(scores_a == scores_a.max())[0]):
