@@ -13,8 +13,12 @@ x_number = 10
 def seek_fp(x):
     e_l = []
     for i in range(trails):
-        conn = Connection(pf=strengthen_functions.PF32, transmission_history_len=10**4)
-        # conn = Connection(pf=strengthen_functions.PF30, transmission_history_len=10**4)
+        '''
+        # conn = Connection(pf=strengthen_functions.PF32,
+                          transmission_history_len=10**4)
+        '''
+        conn = Connection(pf=strengthen_functions.PF30,
+                          transmission_history_len=10**4)
         for i in range(100000):
             conn.propagate_once(stimulus_prob=x)
         e_l.append(conn.strength)
@@ -34,9 +38,10 @@ mean_l = [np.array(i).mean() for i in results_l]
 ax.plot(xs, mean_l, color='red', alpha=1, zorder=2)
 
 xs = np.linspace(0, 1, 100)
-y = np.array([(5. / (100 - 90 * i)) for i in xs])
-# y = np.array([(1. / (1 + i)) for i in xs])
+# y = np.array([(5. / (100 - 90 * i)) for i in xs])
+y = np.array([(1. / (1 + i)) for i in xs])
 ax.plot(xs, y, color='blue', alpha=1, zorder=3)
+ax.tick_params(labelsize=14)
 
 # ax.set_ylim(0, 1)
 plt.savefig('conn_08.png')
