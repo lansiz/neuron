@@ -150,6 +150,70 @@ def PF37(x):
     return (np.exp(13 * x) / (1 + np.exp(13 * x)) - .5) * 1.8 + .05
 
 
+def PF38(x):
+    '''pressed sigmoid'''
+    a = 9
+    b = 1.8
+    return (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * b
+
+
+def PF39(x):
+    '''pressed sigmoid'''
+    a = 5
+    b = 1.8
+    return (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * b
+
+
+def PF40(x):
+    '''pressed sigmoid'''
+    a = 6
+    b = 1.8
+    return (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * b
+
+
+def PF41(x):
+    '''pressed sigmoid'''
+    a = 4
+    b = 1.8
+    return (np.exp(a * x) / (1 + np.exp(a * x)) - .5) * b
+
+
+def PF70(x):
+    '''pressed sigmoid'''
+    a = 5
+    return 2 * np.exp(a * x) / (1 + np.exp(a * x)) - 1
+
+
+def PF71(x):
+    '''pressed sigmoid'''
+    a = 6
+    return 2 * np.exp(a * x) / (1 + np.exp(a * x)) - 1
+
+
+def PF72(x):
+    '''pressed sigmoid'''
+    a = 4
+    return 2 * np.exp(a * x) / (1 + np.exp(a * x)) - 1
+
+
+def PF80(x):
+    '''step sigmoid'''
+    a1 = 1.99
+    a2 = 4.2
+    a3 = 0.01
+    a4 = 0.97
+    return a1 / (1 + np.exp(- a2 * (x - a3))) - a4
+
+
+def PF81(x):
+    '''linear sigmoid'''
+    a1 = 1.89
+    a2 = 3.8
+    a3 = 0.00
+    a4 = 0.86
+    return a1 / (1 + np.exp(- a2 * (x - a3))) - a4
+
+
 def funcs_pool_all():
     globals_ = globals().copy()
     globals_ = [(k, globals_[k]) for k in sorted(globals_.keys())]
@@ -191,7 +255,7 @@ if __name__ == "__main__":
     # plot the functions
     funcs_count = len(plasticity_funcs)
     col_cnt = 6
-    row_cnt = 5
+    row_cnt = 8
     fig = plt.figure(figsize=(12, 1.6 * row_cnt + 1))
     gs = gridspec.GridSpec(row_cnt, col_cnt)
     ax_list = [fig.add_subplot(s) for s in gs]

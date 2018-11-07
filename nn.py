@@ -27,7 +27,8 @@ class NeuralNetwork(object):
         for i in range(self.N):
             for j in range(self.N):
                 if self.connection_matrix[i][j] == 1:
-                    self.transmission_history_m[i][j] = Queue_(self.transmission_history_len)
+                    self.transmission_history_m[i][j] = Queue_(
+                        self.transmission_history_len)
                 else:
                     self.transmission_history_m[i][j] = None
         # interations already done.
@@ -42,8 +43,14 @@ class NeuralNetwork(object):
         tmp_m = np.random.normal(mean, std, (self.N, self.N))
         tmp_m = np.where(tmp_m <= 1, tmp_m, 1)
         tmp_m = np.where(tmp_m >= 0, tmp_m, 0)
-        self.connection_strength_m = np.where(self.connection_matrix == 1, tmp_m, -1)
+        self.connection_strength_m = np.where(
+            self.connection_matrix == 1, tmp_m, -1)
         # self.connection_strength_m_origin = self.connection_strength_m.copy()
+
+    def initialize_synapses_strength_uniform(self):
+        tmp_m = np.random.normal(0, 1, (self.N, self.N))
+        self.connection_strength_m = np.where(
+            self.connection_matrix == 1, tmp_m, -1)
 
     def set_strengthen_functions(self, pf=strengthen_functions.PF34):
         '''
@@ -51,7 +58,8 @@ class NeuralNetwork(object):
         the functions of no-exisiting synapse are set to NaN.
         this method should be reimplemented in sub-class.
         '''
-        self.strengthen_functions_m = np.where(self.connection_matrix == 1, pf, '----')
+        self.strengthen_functions_m = np.where(
+            self.connection_matrix == 1, pf, '----')
 
     def show_strengthen_functions_matrix(self):
         ''' display strengthen functions in prettier matrix '''
@@ -102,19 +110,24 @@ class NeuralNetwork(object):
                     if not self.connection_matrix[i][j]:
                         continue
                     # compute the to-be strength given the frequency by the transimission history
-                    frequency = self.transmission_history_m[i][j].records.sum() / float(self.transmission_history_len)
-                    target_strength = self.strengthen_functions_m[i][j](frequency)
+                    frequency = self.transmission_history_m[i][j].records.sum(
+                    ) / float(self.transmission_history_len)
+                    target_strength = self.strengthen_functions_m[i][j](
+                        frequency)
                     current_strength = self.connection_strength_m[i][j]
 
                     # if the to-be strength > crurent one, the strength should be increased by a little bit.
                     # otherwise, descrease it by a little bit.
                     if target_strength > current_strength:
-                        self.connection_strength_m[i][j] = np.min((current_strength + strengthen_rate, 1))
+                        self.connection_strength_m[i][j] = np.min(
+                            (current_strength + strengthen_rate, 1))
                     else:
-                        self.connection_strength_m[i][j] = np.max((0, current_strength - strengthen_rate))
+                        self.connection_strength_m[i][j] = np.max(
+                            (0, current_strength - strengthen_rate))
 
         # forward the pointer
-        self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
+        self.transmission_history_pointer = (
+            self.transmission_history_pointer + 1) % self.transmission_history_len
 
     def get_transmission_frequency(self):
         '''
@@ -124,14 +137,23 @@ class NeuralNetwork(object):
         for i in range(self.N):
             for j in range(self.N):
                 if self.transmission_history_m[i][j]:
-                    transmission_frequency[i][j] = self.transmission_history_m[i][j].records.sum() / float(self.transmission_history_len)
+                    transmission_frequency[i][j] = self.transmission_history_m[i][j].records.sum(
+                    ) / float(self.transmission_history_len)
         return transmission_frequency.round(4)
 
     def stats(self):
-        connection_strength_m = np.where(self.connection_strength_m >= 0, self.connection_strength_m, 0)
+        connection_strength_m = np.where(
+            self.connection_strength_m >= 0, self.connection_strength_m, 0)
         return {
             'strength_matrix': self.connection_strength_m,
             'strength': connection_strength_m.sum() / self.connections_number}
+
+    def stats_square_mean(self):
+        connection_strength_m = np.where(
+            self.connection_strength_m >= 0, self.connection_strength_m, 0)
+        return {
+            'strength_matrix': self.connection_strength_m,
+            'strength': np.square(connection_strength_m).sum() / self.connections_number}
 
     def propagate_test(self, neurons_stimulated):
         neurons_fired = neurons_stimulated
@@ -150,6 +172,7 @@ class NeuralNetwork(object):
             neurons_newly_propagated = neurons_propagated - neurons_fired
             neurons_fired = neurons_fired.union(neurons_propagated)
         return connections_propagated
+
 
 if __name__ == "__main__":
     pass
