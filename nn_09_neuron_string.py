@@ -1,9 +1,7 @@
 import numpy as np
-import multiprocessing
 from nn import NeuralNetwork
-from gene import Gene
 import strengthen_functions
-import argparse
+import utils
 
 N = 40
 trails = 20
@@ -40,3 +38,8 @@ xs = np.linspace(0, 1, trails)
 results_l = [seek_fp(x) for x in xs]
 print('mean=', [i.mean() for i in results_l])
 print('std=', [i.std() for i in results_l])
+
+result = seek_fp(1)
+utils.write_pickle(result, 'nn_09.pkl')
+
+
