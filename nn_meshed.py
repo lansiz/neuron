@@ -11,13 +11,11 @@ class Queue_(object):
 
 
 class NeuralNetwork(object):
-    def __init__(self, memory_neurons_number=1000, connections_per_memory_neuron=5, transmission_history_len=10**3,
-        image_scale=28, connections_per_sensor=1):
+    def __init__(self, memory_neurons_number=1000, connections_per_memory_neuron=5, transmission_history_len=10**3, image_scale=28, connections_per_sensor=1):
         self.sensor_neurons_number = image_scale ** 2
         self.memory_neurons_number = memory_neurons_number
         self.neurons_number = self.sensor_neurons_number + self.memory_neurons_number
-        self.connections_matrix = np.array([0] * (self.neurons_number ** 2), dtype=np.int8).reshape(
-            (self.neurons_number, self.neurons_number))
+        self.connections_matrix = np.array([0] * (self.neurons_number ** 2), dtype=np.int8).reshape((self.neurons_number, self.neurons_number))
         # the connections matrix has four quarters
         # quarter 1: 28**2 * 1000, connections from sensor to memory neurons, 28 ** 2 * connections_per_sensor_neuron connections
         self.sensor_to_memory_connections = self.sensor_neurons_number * connections_per_sensor
@@ -146,14 +144,16 @@ class NeuralNetwork(object):
         self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
 
     @classmethod
-    def validate(cls, mnist_img, connection_strength_m):
+    def validate(cls, img, connection_strength_m, gray_max=16.):
         '''
         test a number image in NN and collect strength of connections triggered.
         in the meantime, connections' strength stay fixed.
         '''
-        connections_l = []
-        connections_strength_l = []
-        neurons_fired = set(np.where(mnist_img.flatten() > 0)[0])
+        count = 0
+        # connections_l = []
+        # connections_strength_l = []
+        img = img / float(gray_max)
+        neurons_fired = set(np.where(img.flatten() > np.random.rand(img.shape[0] ** 2))[0])
         neurons_newly_propagated = neurons_fired
         # propagate the stimulus
         while len(neurons_newly_propagated):
@@ -168,11 +168,13 @@ class NeuralNetwork(object):
                         # add the newly propagated neuron
                         neurons_propagated.add(j)
                         # records the triggered connnections' strength
-                        connections_l.append((i, j))
-                        connections_strength_l.append(strength)
+                        # connections_l.append((i, j))
+                        # connections_strength_l.append(strength)
+                        count += 1
             neurons_newly_propagated = neurons_propagated - neurons_fired
             neurons_fired = neurons_fired.union(neurons_propagated)
-        return connections_l, connections_strength_l
+        # return connections_l, connections_strength_l
+        return count
 
     def stats(self):
         connection_strength_m = np.where(self.connection_strength_m >= 0, self.connection_strength_m, 0)

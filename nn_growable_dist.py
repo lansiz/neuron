@@ -12,10 +12,11 @@ import skl
 import utils
 # import seaborn as sns
 # import sys
+import random
 
 iters = 5 * 10 ** 4
 
-imgs_l = [skl.load_test_data(i) for i in range(10)]
+imgs_l = [skl.get_imgs_by_number(i) for i in range(10)]
 strength_matrix_l = [utils.read_pickle('pkl/nn_growable_' + str(i) + '.pkl') for i in range(10)]
 
 fig, axes = plt.subplots(5, 2, figsize=(6, 6), sharex=True, sharey=True)
@@ -23,10 +24,12 @@ axes = axes.flatten()
 
 for j, matrix in enumerate(strength_matrix_l):
     results_l = [[], [], [], [], [], [], [], [], [], []]
-    for (imgs, size), result in zip(imgs_l, results_l):
+    for imgs, result in zip(imgs_l, results_l):
         for i in range(iters):
-            label, img = imgs[i % size]
-            result.append(NeuralNetwork.validate(img, matrix, gray_max=16))
+            # label, img = imgs[i % size]
+            img = random.choice(imgs)[1]
+            # result.append(NeuralNetwork.validate(img, matrix, gray_max=16))
+            result.append(NeuralNetwork.validate_weighted(img, matrix, gray_max=16, threshhold=.6, weight=3))
 
     for i, result in enumerate(results_l):
         if i != j:
@@ -43,7 +46,8 @@ for j, matrix in enumerate(strength_matrix_l):
         axes[j].hist(result, histtype='step', density=True, color=color, linewidth=line, zorder=zorder)
         # axes.axvline(x=mu, linewidth=1, color=color, zorder=zorder)
         axes[j].tick_params(labelsize=8)
-        axes[j].set_xlim(0, 25)
+        # axes[j].set_xlim(0, 25)
+        axes[j].set_xlim(0, 50)
 plt.savefig('./nn_growable_z_dist.png')
 # plt.show()
 

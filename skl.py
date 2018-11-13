@@ -7,6 +7,7 @@ from sklearn import datasets
 # import numpy as np
 import random
 import utils
+import numpy as np
 
 """
 Loosely inspired by http://abel.ee.ucla.edu/cvxopt/_downloads/mnist.py
@@ -22,6 +23,17 @@ def get_imgs_by_number(num=None):
         imgs = [i for i in images_and_labels if i[0] == num]
     return imgs
 
+def average_img_by_number(num=None):
+    if num is None:
+        imgs = get_imgs_by_number()
+    else:
+        imgs = get_imgs_by_number(num)
+    imgs = [i[1] for i in imgs]
+    size = float(len(imgs))
+    img = np.zeros((8, 8))
+    for i in imgs:
+        img += i
+    return img / size
 
 def build_data():
     training_data = {}
