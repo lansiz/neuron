@@ -15,10 +15,11 @@ args = parser.parse_args()
 iterations = int(args.iterations)
 num = int(args.num)
 
-threshhold = 0.8
-weight = 100
+threshhold = 0.3
+power = 2
+weight = 20
 
-print('threshhold %s weight %s' % (threshhold, weight))
+# print('threshhold %s power %s weight %s' % (threshhold, power, weight))
 
 if num >=0:
     imgs = skl.get_imgs_by_number(num)
@@ -32,12 +33,8 @@ correct = .0
 trails = .0
 for i in range(iterations):
     label, img = random.choice(imgs)
-    '''
-    scores_a = np.array([NeuralNetwork.validate(
-        img, strength_matrix, gray_max=16) for strength_matrix in strength_matrix_l])
-    '''
-    scores_a = np.array([NeuralNetwork.validate_2(
-        img, strength_matrix, gray_max=16, threshhold=threshhold, weight=weight) for strength_matrix in strength_matrix_l])
+    scores_a = np.array([NeuralNetwork.validate_linear(
+        img, strength_matrix, gray_max=16, threshhold=threshhold, power=power, weight=weight) for strength_matrix in strength_matrix_l])
     if label == random.choice(np.where(scores_a == scores_a.max())[0]):
         correct += 1
         if not (i % 1000):

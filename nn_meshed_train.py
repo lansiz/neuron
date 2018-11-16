@@ -15,10 +15,10 @@ import skl
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-m', action="store", dest="mnist_number")
-parser.add_argument('-s', action="store", dest="memory_neurons_number", default=200, help="default: 500")
-parser.add_argument('-c', action="store", dest="connections_per_sensor", default=2, help="default: 2")
+parser.add_argument('-s', action="store", dest="memory_neurons_number", default=50, help="default: 500")
+parser.add_argument('-c', action="store", dest="connections_per_sensor", default=6, help="default: 2")
 parser.add_argument('-r', action="store", dest="connections_per_memory_neuron", default=5, help="default: 5")
-parser.add_argument('-i', action="store", dest="iterations", default=20000, help="default: 20000")
+parser.add_argument('-i', action="store", dest="iterations", default=10000, help="default: 10000")
 args = parser.parse_args()
 mnist_number = int(args.mnist_number)
 memory_neurons_number = int(args.memory_neurons_number)
@@ -44,7 +44,7 @@ img = skl.average_img_by_number(mnist_number) / 16.
 
 start_time = datetime.datetime.now()
 
-plotting_strength = True
+plotting_strength = False
 if plotting_strength: strength_stats = []
 for i in range(iterations):
     stimulated = set(np.where(img.flatten() > np.random.rand(img.shape[0] ** 2))[0])
@@ -53,8 +53,8 @@ for i in range(iterations):
         if i % 10 == 0: strength_stats.append(nn.stats()['strength'])
 
 end_time = datetime.datetime.now()
-print('start time:', start_time)
-print('stop time: ', end_time)
+# print('start time:', start_time)
+# print('stop time: ', end_time)
 
 if plotting_strength:
     plt.plot(strength_stats)

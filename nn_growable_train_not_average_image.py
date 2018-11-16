@@ -1,7 +1,7 @@
 
 from __future__ import print_function
 # import numpy as np
-# import random
+import random
 import datetime
 import argparse
 import matplotlib as mpl
@@ -15,7 +15,7 @@ import strengthen_functions
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-n', action="store", dest="number")
-parser.add_argument('-i', action="store", dest="iterations", default=30000, help="default: 30000")
+parser.add_argument('-i', action="store", dest="iterations", default=80000, help="default: 30000")
 args = parser.parse_args()
 number = int(args.number)
 iterations = int(args.iterations)
@@ -23,13 +23,21 @@ iterations = int(args.iterations)
 pf = strengthen_functions.PF81
 nn = NeuralNetwork(strength_function=pf, image_scale=8, transmission_history_len=10**4)
 
-average_img = skl.average_img_by_number(number)
+'''
+train_imgs, _ = skl.load_data()
+train_imgs = train_imgs[number]
+size = len(train_imgs)
+'''
 
-plotting_strength = False
+# average_img = skl.average_img_by_number(number)
+train_imgs = skl.get_imgs_by_number(number)
+
+plotting_strength = True
 if plotting_strength: strength_stats = []
 start_time = datetime.datetime.now()
 for i in range(iterations):
-    nn.propagate_once(average_img, gray_max=16)
+    _, img = random.choice(train_imgs)
+    nn.propagate_once(img, gray_max=16)
     if plotting_strength:
         if i % 10 == 0: strength_stats.append(nn.stats()['strength'])
 end_time = datetime.datetime.now()

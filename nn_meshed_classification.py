@@ -9,7 +9,7 @@ import utils
 
 # the number of 0~9 to train NN with
 parser = argparse.ArgumentParser()
-parser.add_argument('-i', action="store", dest="iterations", default=5000)
+parser.add_argument('-i', action="store", dest="iterations", default=1000)
 parser.add_argument('-j', action="store", dest="num", default=-1)
 args = parser.parse_args()
 iterations = int(args.iterations)
@@ -31,14 +31,14 @@ strength_matrix_l = [utils.read_pickle('pkl/nn_meshed_' + str(i) + '.pkl') for i
 correct = .0
 trails = .0
 for i in range(iterations):
+    trails += 1
     label, img = random.choice(imgs)
     scores_a = np.array([NeuralNetwork.validate(img, strength_matrix, gray_max=16.) for strength_matrix in strength_matrix_l])
     if label == random.choice(np.where(scores_a == scores_a.max())[0]):
         correct += 1
-        if not (i % 10):
-            print(label, scores_a)
+        if not (i % 10) and  i > 0:
+            # print(round(correct / trails * 100, 2), label, scores_a)
             pass
-    trails += 1
 
 print(round(correct / trails, 4))
 
