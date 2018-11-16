@@ -3,12 +3,12 @@ import matplotlib.gridspec as gridspec
 import numpy as np
 import strengthen_functions
 from connection import Connection
-import multiprocessing
+# import multiprocessing
 
 gs = gridspec.GridSpec(1, 8)
 ax1 = plt.subplot(gs[:, :3])
-ax2 = plt.subplot(gs[:, 3:8])
-# plt.setp(ax2.get_yticklabels(), visible=False)
+ax2 = plt.subplot(gs[:, 3:8], sharey=ax1)
+plt.setp(ax2.get_yticklabels(), visible=False)
 
 fig = ax1.get_figure()
 fig.set_figwidth(10)

@@ -5,6 +5,9 @@ Based on code from https://gist.github.com/akesling/5358964
 # import os
 from sklearn import datasets
 # import numpy as np
+import matplotlib as mpl
+mpl.use('Agg', warn=False)
+import matplotlib.pyplot as plt
 import random
 import utils
 import numpy as np
@@ -85,5 +88,22 @@ def show(image):
     pyplot.show()
 
 if __name__ == "__main__":
-    build_data()
+    fig, axes = plt.subplots(2, 10, figsize=(10, 2), sharex=True, sharey=True)
+    axes = axes.flatten()
+    for i in range(10):
+        random_img = random.choice(get_imgs_by_number(i))[1]
+        aver_img = average_img_by_number(i)
+        random_ax = axes[i]
+        aver_ax = axes[i + 10]
+        imgplot = random_ax.imshow(random_img, cmap=mpl.cm.Greys)
+        imgplot.set_interpolation('nearest')
+        imgplot = aver_ax.imshow(aver_img, cmap=mpl.cm.Greys)
+        imgplot.set_interpolation('nearest')
+        for tick in aver_ax.xaxis.get_major_ticks(): tick.set_visible(False)
+        for tick in aver_ax.yaxis.get_major_ticks(): tick.set_visible(False)
+        for tick in random_ax.xaxis.get_major_ticks(): tick.set_visible(False)
+        for tick in random_ax.yaxis.get_major_ticks(): tick.set_visible(False)
+        # ax.xaxis.set_ticks_position('top')
+        # ax.yaxis.set_ticks_position('left')
+    fig.savefig('average_image.png')
 
