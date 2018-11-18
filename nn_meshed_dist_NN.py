@@ -47,6 +47,6 @@ for j, matrix in enumerate(strength_matrix_l):
         axes[j].tick_params(labelsize=8)
         # axes[j].set_xlim(0, 25)
         # axes[j].set_xlim(0, 50)
-plt.savefig('./nn_meshed_z_dist.png')
+plt.savefig('./nn_meshed_z_NN.png')
 # plt.show()
 
