@@ -25,6 +25,7 @@ fig, axes = plt.subplots(1, 1, figsize=(9, 3), sharex=True, sharey=True)
 
 imgs = imgs_l[num]
 index = random.choice(range(len(imgs)))
+index = 3
 print('index of testing img: ', index)
 img = imgs[index][1]
 # skl.show(img)

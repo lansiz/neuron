@@ -69,6 +69,6 @@ for k, pf in enumerate(pfs):
         axes[k].set_xlim(-4, 4)
         # axes[j].set_xlim(0, 50)
         axes[k].tick_params(labelsize=10)
-plt.savefig('./nn_growable_z_dist_variance.png')
+plt.savefig('./nn_growable_6_NN.png')
 # plt.show()
 

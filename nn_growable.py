@@ -61,7 +61,7 @@ class NeuralNetwork(object):
 
     # holy Z linear
     @classmethod
-    def validate_linear(cls, mnist_img, connections_matrix, gray_max=255., threshhold=.0, power=1, weight=3):
+    def validate_linear(cls, mnist_img, connections_matrix, gray_max=16., threshhold=.0, power=1, weight=3):
         connections_propagated = 0
         mnist_img = mnist_img / float(gray_max)
         stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
@@ -74,7 +74,7 @@ class NeuralNetwork(object):
 
     # holy Z threshhold
     @classmethod
-    def validate_threshold(cls, mnist_img, connections_matrix, gray_max=255., threshhold=.0, power=1, weight=3):
+    def validate_threshold(cls, mnist_img, connections_matrix, gray_max=16., threshhold=.0, power=1, weight=3):
         connections_propagated = 0
         mnist_img = mnist_img / float(gray_max)
         stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
@@ -87,7 +87,7 @@ class NeuralNetwork(object):
 
     # original
     @classmethod
-    def validate_1(cls, mnist_img, connections_matrix, gray_max=255., threshhold=.5, weight=3):
+    def validate_original(cls, mnist_img, connections_matrix, gray_max=16.):
         connections_propagated = 0
         mnist_img = mnist_img / float(gray_max)
         stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
@@ -98,21 +98,21 @@ class NeuralNetwork(object):
         return connections_propagated
 
     # threshhold + weight
-    # weight=1 -----> pure threshhold
+    # weight=1 -----> pure step
     @classmethod
-    def validate_2(cls, mnist_img, connections_matrix, gray_max=255., threshhold=.5, weight=3):
+    def validate_step(cls, mnist_img, connections_matrix, gray_max=16., threshold=.5):
         connections_propagated = 0
         mnist_img = mnist_img / float(gray_max)
         stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
         # propagate the stimulus
         for i in stimulated_neurons:
-            if connections_matrix[i] > threshhold:
-                connections_propagated += 1 * weight
+            if connections_matrix[i] > threshold:
+                connections_propagated += 1
         return connections_propagated
 
     # pure strength * weight
     @classmethod
-    def validate_3(cls, mnist_img, connections_matrix, gray_max=255., threshhold=.5, weight=3):
+    def validate_3(cls, mnist_img, connections_matrix, gray_max=16., threshhold=.5, weight=3):
         connections_propagated = 0
         mnist_img = mnist_img / float(gray_max)
         stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])

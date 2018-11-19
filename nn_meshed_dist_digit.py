@@ -25,7 +25,7 @@ axes = axes.flatten()
 for i, imgs in enumerate(imgs_l):
     results_l = [[], [], [], [], [], [], [], [], [], []]
     for matrix, result in zip(strength_matrix_l, results_l):
-        for i in range(iters):
+        for _ in range(iters):
             # label, img = imgs[i % size]
             img = random.choice(imgs)[1]
             result.append(NeuralNetwork.validate(img, matrix, gray_max=16))

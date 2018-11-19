@@ -40,5 +40,9 @@ for i in range(iterations):
             # print(round(correct / trails * 100, 2), label, scores_a)
             pass
 
-print(round(correct / trails, 4))
+
+if num >=0:
+    print(num, ': ', round(correct / trails, 4))
+else:
+    print(round(correct / trails, 4))
 
