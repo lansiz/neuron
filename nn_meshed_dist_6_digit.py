@@ -48,6 +48,7 @@ if True:
             line = 2
         mu = np.mean(result)
         std = np.std(result)
+        axes.axvline(x=mu, linewidth=line, linestyle='dotted', color=color, zorder=zorder)
         axes.hist(result, histtype='step', density=True,
                   color=color, linewidth=line, zorder=zorder, bins=20)
         axes.tick_params(labelsize=12)
