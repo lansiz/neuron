@@ -198,20 +198,26 @@ def PF72(x):
 
 def PF80(x):
     '''step sigmoid'''
+    '''
     a1 = 1.99
     a2 = 4.2
     a3 = 0.01
     a4 = 0.97
     return a1 / (1 + np.exp(- a2 * (x - a3))) - a4
+    '''
+    return 2 / (1 + np.exp(- 4.4 * (x + 0.001))) - 1
 
 
 def PF81(x):
     '''linear sigmoid'''
+    '''
     a1 = 1.89
     a2 = 3.8
     a3 = 0.00
     a4 = 0.86
     return a1 / (1 + np.exp(- a2 * (x - a3))) - a4
+    '''
+    return .99 * x ** 0.5 + 0.01
 
 
 def funcs_pool_all():

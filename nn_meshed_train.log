@@ -1,0 +1,31 @@
+
+mnist_number: 7 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 9 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 2 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 3 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 0 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 6 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 5 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 1 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 8 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634
+mnist_number: 4 memory_neurons_number: 50 connections_per_sensor: 6 connections_per_memory_neuron: 5
+iterations: 10000
+#neurons: 114 #sensors: 64 #memory: 50 #connections: 634

@@ -1,6 +1,6 @@
 .vscode
 *.pyc
-*.png
-*.pkl
-*.log
+# *.png
+# *.pkl
+# *.log
 *-ubyte

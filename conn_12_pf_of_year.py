@@ -1,3 +1,6 @@
+from __future__ import print_function
+import matplotlib as mpl
+mpl.use('Agg', warn=False)
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
@@ -63,7 +66,7 @@ trails = 10
 x_number = 20
 
 
-def seek_fp(pf):
+def seek_fp(pf, x):
     e_l = []
     for i in range(trails):
         conn = Connection(pf=pf)
@@ -80,7 +83,7 @@ xs = np.linspace(0, 1, x_number)
 # ax2.tick_params(labelsize=14)
 
 # for step sigmoid PF step
-results_l = [seek_fp(pf_step) for x in xs]
+results_l = [seek_fp(pf_step, x_) for x_ in xs]
 for t in range(trails):
     y = [i[t] for i in results_l]
     ax2.plot(xs, y, 'o', color='green', alpha=.3, zorder=1)
@@ -88,7 +91,7 @@ mean_l = [np.array(i).mean() for i in results_l]
 ax2.plot(xs, mean_l, color='green', alpha=1, zorder=2)
 
 # for step sigmoid PF linear
-results_l = [seek_fp(pf_linear) for x in xs]
+results_l = [seek_fp(pf_linear, x_) for x_ in xs]
 for t in range(trails):
     y = [i[t] for i in results_l]
     ax2.plot(xs, y, 'o', color='blue', alpha=.3, zorder=1)
@@ -96,4 +99,5 @@ mean_l = [np.array(i).mean() for i in results_l]
 ax2.plot(xs, mean_l, color='blue', alpha=1, zorder=2)
 
 plt.savefig(figname)
-plt.show()
+# plt.show()
+

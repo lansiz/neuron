@@ -40,7 +40,7 @@ correct = .0
 trails = .0
 for i in range(iterations):
     label, img = random.choice(imgs)
-    scores_a = np.array([validators[1](img, strength_matrix) for strength_matrix in strength_matrix_l])
+    scores_a = np.array([validators[0](img, strength_matrix) for strength_matrix in strength_matrix_l])
     if label == random.choice(np.where(scores_a == scores_a.max())[0]):
         correct += 1
         if not (i % 1000):
