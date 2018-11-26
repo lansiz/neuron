@@ -1,7 +1,7 @@
 
 from __future__ import print_function
 # import numpy as np
-# import random
+import random
 import datetime
 import argparse
 import matplotlib as mpl
@@ -12,6 +12,8 @@ import skl
 import utils
 # import sys
 import strengthen_functions
+
+random.seed()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-n', action="store", dest="number")
