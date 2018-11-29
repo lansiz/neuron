@@ -1,21 +1,21 @@
 
-#sensors: 64 PF: <function PF80 at 0x385fed8>
-4:  start time: 2018-11-24 14:45:15.450900 stop time:  2018-11-24 14:48:29.414889
-#sensors: 64 PF: <function PF80 at 0x4be5ed8>
-0:  start time: 2018-11-24 14:45:15.449543 stop time:  2018-11-24 14:48:32.106797
-#sensors: 64 PF: <function PF80 at 0x4391ed8>
-1:  start time: 2018-11-24 14:45:15.450690 stop time:  2018-11-24 14:48:39.514375
-#sensors: 64 PF: <function PF80 at 0x4292140>
-3:  start time: 2018-11-24 14:45:15.377900 stop time:  2018-11-24 14:48:42.639178
-#sensors: 64 PF: <function PF80 at 0x4c0eed8>
-9:  start time: 2018-11-24 14:45:15.388098 stop time:  2018-11-24 14:48:47.326176
-#sensors: 64 PF: <function PF80 at 0x3c62ed8>
-2:  start time: 2018-11-24 14:45:15.397032 stop time:  2018-11-24 14:48:48.607648
-#sensors: 64 PF: <function PF80 at 0x3b4ded8>
-7:  start time: 2018-11-24 14:45:15.390042 stop time:  2018-11-24 14:48:52.330520
-#sensors: 64 PF: <function PF80 at 0x4095ed8>
-6:  start time: 2018-11-24 14:45:15.392504 stop time:  2018-11-24 14:49:12.822328
-#sensors: 64 PF: <function PF80 at 0x4417ed8>
-8:  start time: 2018-11-24 14:45:15.445754 stop time:  2018-11-24 14:49:18.625224
-#sensors: 64 PF: <function PF80 at 0x4c85ed8>
-5:  start time: 2018-11-24 14:45:15.391620 stop time:  2018-11-24 14:49:20.086568
+#sensors: 64 PF: <function PF81 at 0x4c47f50>
+8:  start time: 2018-11-29 12:12:55.690491 stop time:  2018-11-29 12:16:13.773667
+#sensors: 64 PF: <function PF81 at 0x36cbf50>
+5:  start time: 2018-11-29 12:12:55.638047 stop time:  2018-11-29 12:16:17.394715
+#sensors: 64 PF: <function PF81 at 0x4cdaf50>
+7:  start time: 2018-11-29 12:12:55.678068 stop time:  2018-11-29 12:16:21.773097
+#sensors: 64 PF: <function PF81 at 0x352ef50>
+1:  start time: 2018-11-29 12:12:55.661472 stop time:  2018-11-29 12:16:23.873093
+#sensors: 64 PF: <function PF81 at 0x346cf50>
+0:  start time: 2018-11-29 12:12:55.701096 stop time:  2018-11-29 12:16:29.289233
+#sensors: 64 PF: <function PF81 at 0x3755f50>
+6:  start time: 2018-11-29 12:12:55.629719 stop time:  2018-11-29 12:16:30.519811
+#sensors: 64 PF: <function PF81 at 0x46f1f50>
+9:  start time: 2018-11-29 12:12:55.668033 stop time:  2018-11-29 12:16:35.827465
+#sensors: 64 PF: <function PF81 at 0x50cbf50>
+3:  start time: 2018-11-29 12:12:55.663774 stop time:  2018-11-29 12:16:40.020879
+#sensors: 64 PF: <function PF81 at 0x3abbf50>
+2:  start time: 2018-11-29 12:12:55.657087 stop time:  2018-11-29 12:16:54.934888
+#sensors: 64 PF: <function PF81 at 0x3847f50>
+4:  start time: 2018-11-29 12:12:55.698410 stop time:  2018-11-29 12:17:00.531973

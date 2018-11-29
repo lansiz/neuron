@@ -1,5 +1,5 @@
-# import matplotlib as mpl
-# mpl.use('Agg', warn=False)
+import matplotlib as mpl
+mpl.use('Agg', warn=False)
 import multiprocessing
 import matplotlib.pyplot as plt
 from connection import Connection
@@ -13,7 +13,7 @@ x_number = 20
 def seek_fp(x):
     e_l = []
     for i in range(trails):
-        conn = Connection(pf=strengthen_functions.PF12)
+        conn = Connection(pf=strengthen_functions.PF15)
         # the init_strength should be reset with random
         conn.strength = np.random.rand()
         for i in range(100000):
@@ -41,5 +41,6 @@ ax.plot(xs, mean_l, color='red', alpha=1, zorder=2)
 ax.tick_params(labelsize=14)
 
 # ax.set_ylim(0, 1)
-plt.savefig('conn_10.png')
-plt.show()
+plt.savefig('conn_10_pf15.png')
+# plt.show()
+
