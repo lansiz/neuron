@@ -8,11 +8,13 @@
 ## Figure 4: one-to-one mapping from stimulus to strength
 
 `conn_08_s_x_relation_pf_30.py`
+
 `conn_08_s_x_relation_pf_32.py`
 
 ## Figure 5: different stimulus
 
 `conn_09_typical_funcs_convergence.py` with  plasticity functions PF12.
+
 `conn_10_s_x_relation_sin_pf.py` to plot theta function.
 
 ## Figure 6: lambda of choice
@@ -38,10 +40,13 @@
 ## meshed-NN
 
 training: `nn_meshed_train_batch.sh`
+
 testing: `nn_meshed_test_batch.sh`
+
 per-digit testing: `nn_meshed_test_number_batch.sh`
 
 ## growable-NN
 
 training: `nn_growable_train_batch.sh`
+
 testing: `nn_growable_test_batch.sh`

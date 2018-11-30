@@ -1,10 +1,10 @@
+from connection import Connection
+import strengthen_functions
+import numpy as np
+import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
 import matplotlib as mpl
 mpl.use('Agg', warn=False)
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import numpy as np
-import strengthen_functions
-from connection import Connection
 
 gs = gridspec.GridSpec(1, 15)
 ax1 = plt.subplot(gs[:, :5])
@@ -38,13 +38,17 @@ ax1.plot(x, discontinue(y_scaled), linewidth=2, linestyle='-', color='red')
 # for i in range(11):
 conn = Connection(init_strength=.5, pf=pf, transmission_history_len=10**4)
 strength = []
-target_strength = []
+target_strength_l = []
+frequency_l = []
 for i in range(1 * 50000):
-    target = conn.propagate_once(stimulus_prob=stimulus_prob, return_target_strength=True)
+    target_strength, frequency = conn.propagate_once(
+        stimulus_prob=stimulus_prob, return_target_strength=True)
     strength.append(conn.get_strength())
-    target_strength.append(target)
+    target_strength_l.append(target_strength)
+    frequency_l.append(frequency)
 ax2.plot(strength, alpha=.5)
-ax2.plot(target_strength, alpha=.5)
+ax2.plot(target_strength_l, linestyle='dashed', alpha=.5)
+ax2.plot(frequency_l, linestyle='dotted', alpha=.5)
 
 ax1.tick_params(labelsize=8)
 ax2.tick_params(labelsize=8)

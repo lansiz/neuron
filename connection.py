@@ -20,28 +20,32 @@ class Connection(object):
         self.strengthen_rate = float(1) / self.transmission_history_len
         self.I = 0
 
-
     def propagate_once(self, stimulus_prob, debug=False, return_target_strength=False):
         self.I += 1
         target_strength = 0
+        frequency = 0
         self.transmission_history.records[self.transmission_history_pointer] = 0
         if stimulus_prob > np.random.rand():
             if self.strength > np.random.rand():
                 self.transmission_history.records[self.transmission_history_pointer] = 1
         if self.I > self.transmission_history_len:
-            frequency = self.transmission_history.records.sum() / float(self.transmission_history_len)
+            frequency = self.transmission_history.records.sum(
+            ) / float(self.transmission_history_len)
             target_strength = self.strengthen_function(frequency)
             current_strength = self.strength
 
             if target_strength > current_strength:
-                self.strength = np.min((current_strength + self.strengthen_rate, 1))
+                self.strength = np.min(
+                    (current_strength + self.strengthen_rate, 1))
             else:
-                self.strength = np.max((0, current_strength - self.strengthen_rate))
+                self.strength = np.max(
+                    (0, current_strength - self.strengthen_rate))
 
-        self.transmission_history_pointer = (self.transmission_history_pointer + 1) % self.transmission_history_len
+        self.transmission_history_pointer = (
+            self.transmission_history_pointer + 1) % self.transmission_history_len
 
         if return_target_strength:
-            return target_strength
+            return target_strength, frequency
 
     def get_frequency(self):
         return self.transmission_history.records.sum() / float(self.transmission_history_len)
