@@ -41,5 +41,5 @@ ax.plot(xs, mean_l, color='red', alpha=1, zorder=2)
 ax.tick_params(labelsize=14)
 
 # ax.set_ylim(0, 1)
-plt.savefig('conn_10_pf15.png')
+plt.savefig('conn_10_pf12.png')
 # plt.show()

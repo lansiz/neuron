@@ -17,23 +17,27 @@
 
 `conn_10_s_x_relation_sin_pf.py` to plot theta function.
 
-## Figure 6: lambda of choice
+## Figure 6: Theta function of discontinuous lambda
+
+`conn_14_s_x_relation_discont_pf.py`
+
+## Figure 7: lambda of choice
 
 `conn_12_pf_of_year.py` constructs linear and threshhold-like thelta functions.
 
-## Figure 8: neural network to f.p. on different lambda
+## Figure 9: neural network to f.p. on different lambda
 
 `nn_02_different_e_to_fp.py` with different plasticity functions PF32, PF12, PF30, PF15.
 
-## Figure 11: meshed-NN classifier for digit 6
+## Figure 12: meshed-NN classifier for digit 6
 
 `nn_meshed_dist_6_digit.py`
 
-## Figure 12: meshed-NN classifier for all digits
+## Figure 13: meshed-NN classifier for all digits
 
 `nn_meshed_dist_digit.py`
 
-## Figure 14: Optimization of growable classifier
+## Figure 15: Optimization of growable classifier
 
 `nn_growable_6_digit_80_81.py`
 

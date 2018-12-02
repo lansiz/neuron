@@ -1,8 +1,10 @@
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import numpy as np
-import strengthen_functions
 from connection import Connection
+import strengthen_functions
+import numpy as np
+import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+mpl.use('Agg', warn=False)
 
 gs = gridspec.GridSpec(1, 15)
 ax1 = plt.subplot(gs[:, :5])
@@ -16,7 +18,7 @@ fig.set_figheight(1.5)
 fig.subplots_adjust(wspace=1)
 
 pf = strengthen_functions.PF12
-figname = 'fig_09_pf12.png'
+figname = 'conn_09_pf12.png'
 
 
 def discontinue(y):
@@ -26,6 +28,8 @@ def discontinue(y):
 
 
 stimulus_prob = .3
+# stimulus_prob = .8
+# stimulus_prob = .9
 x = np.linspace(0, 1, 100, endpoint=False)
 y = np.array([pf(i) for i in x])
 y_scaled = np.array([pf(stimulus_prob * i) for i in x])
