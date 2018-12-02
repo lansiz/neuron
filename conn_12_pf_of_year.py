@@ -1,11 +1,11 @@
 from __future__ import print_function
+from connection import Connection
+import strengthen_functions
+import numpy as np
+import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
 import matplotlib as mpl
 mpl.use('Agg', warn=False)
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import numpy as np
-import strengthen_functions
-from connection import Connection
 # import multiprocessing
 
 gs = gridspec.GridSpec(1, 8)
@@ -15,7 +15,7 @@ plt.setp(ax2.get_yticklabels(), visible=False)
 
 fig = ax1.get_figure()
 fig.set_figwidth(10)
-fig.set_figheight(5)
+fig.set_figheight(4)
 # gs.tight_layout(fig, rect=[0, 0, 1, 0.950])
 fig.subplots_adjust(wspace=1)
 
@@ -100,4 +100,3 @@ ax2.plot(xs, mean_l, color='blue', alpha=1, zorder=2)
 
 plt.savefig(figname)
 # plt.show()
-
