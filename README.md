@@ -1,4 +1,4 @@
-# Latest paper is here: (https://arxiv.org/abs/1805.09001)(https://arxiv.org/abs/1805.09001)
+# Latest paper is here: [https://arxiv.org/abs/1805.09001](https://arxiv.org/abs/1805.09001)
 # code for figures and experiments
 
 ## Figure 3: typical lambda function and their f.p.
