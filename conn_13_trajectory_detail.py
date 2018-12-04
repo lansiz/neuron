@@ -18,7 +18,7 @@ fig.set_figheight(3)
 fig.subplots_adjust(wspace=1)
 
 pf = strengthen_functions.PF15
-figname = 'fig_13_pf15.png'
+figname = 'conn_13_pf15.png'
 
 
 def discontinue(y):

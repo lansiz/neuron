@@ -10,7 +10,8 @@ np.random.seed()
 # plt.figure(figsize=(10, 3))
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3))
 for i in range(11):
-    conn = Connection(init_strength=.1 * i, pf=strengthen_functions.PF32, transmission_history_len=10**4)
+    conn = Connection(init_strength=.1 * i,
+                      pf=strengthen_functions.PF32, transmission_history_len=10**4)
     strength = []
     frequency = []
     for i in range(100000):
@@ -26,5 +27,3 @@ for i in range(11):
 # plt.grid(True)
 plt.savefig('conn_01.png')
 plt.show()
-
-

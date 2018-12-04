@@ -11,7 +11,8 @@ np.random.seed()
 # fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3))
 fig, ax = plt.subplots(1, 1, figsize=(10, 3))
 for i in range(11):
-    conn = Connection(init_strength=.1 * i, pf=strengthen_functions.PF13, transmission_history_len=10**4)
+    conn = Connection(init_strength=.1 * i,
+                      pf=strengthen_functions.PF13, transmission_history_len=10**4)
     strength = []
     frequency = []
     for i in range(30 * 10 ** 4):
