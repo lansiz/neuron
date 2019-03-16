@@ -25,7 +25,8 @@ validators = [
     lambda img, matrix: NeuralNetwork.validate_original(img, matrix),
     lambda img, matrix: NeuralNetwork.validate_step(img, matrix, threshold=.6),
     lambda img, matrix: NeuralNetwork.validate_linear(img, matrix, power=3, weight=100),
-    lambda img, matrix: NeuralNetwork.validate_threshold(img, matrix, power=3, threshhold=.2, weight=10)]
+    lambda img, matrix: NeuralNetwork.validate_threshold(img, matrix, power=3, threshhold=.2, weight=10),
+    lambda img, matrix: NeuralNetwork.validate_threshold_2(img, matrix, power=3, weight=100)]
 # print('threshhold %s power %s weight %s' % (threshhold, power, weight))
 
 if num >=0:
@@ -40,7 +41,7 @@ correct = .0
 trails = .0
 for i in range(iterations):
     label, img = random.choice(imgs)
-    scores_a = np.array([validators[3](img, strength_matrix) for strength_matrix in strength_matrix_l])
+    scores_a = np.array([validators[0](img, strength_matrix) for strength_matrix in strength_matrix_l])
     if label == random.choice(np.where(scores_a == scores_a.max())[0]):
         correct += 1
         if not (i % 1000):

@@ -85,6 +85,19 @@ class NeuralNetwork(object):
                 connections_propagated += (s ** power) * weight
         return connections_propagated
 
+    # holy Z threshhold 2
+    @classmethod
+    def validate_threshold_2(cls, mnist_img, connections_matrix, gray_max=16., power=1, weight=3):
+        connections_propagated = 0
+        mnist_img = mnist_img / float(gray_max)
+        stimulated_neurons = set(np.where(mnist_img.flatten() > np.random.rand(mnist_img.shape[0] ** 2))[0])
+        # propagate the stimulus
+        for i in stimulated_neurons:
+            if connections_matrix[i] > np.random.rand():
+                s = connections_matrix[i]
+                connections_propagated += (s ** power) * weight
+        return connections_propagated
+
     # original
     @classmethod
     def validate_original(cls, mnist_img, connections_matrix, gray_max=16.):

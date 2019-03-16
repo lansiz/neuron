@@ -22,7 +22,7 @@ args = parser.parse_args()
 number = int(args.number)
 iterations = int(args.iterations)
 
-pf = strengthen_functions.PF81
+pf = strengthen_functions.PF80
 nn = NeuralNetwork(strength_function=pf, image_scale=8, transmission_history_len=10**4)
 
 average_img = skl.average_img_by_number(number)
