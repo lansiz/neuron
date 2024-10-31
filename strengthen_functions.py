@@ -253,7 +253,7 @@ def print_name(arr):
 
 if __name__ == "__main__":
     import matplotlib as mpl
-    mpl.use('Agg', warn=False)
+    # mpl.use('Agg', warn=False)
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
     plasticity_funcs = funcs_pool_all()

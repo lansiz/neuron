@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-mpl.use('Agg', warn=False)
+# mpl.use('Agg', warn=False)
 # import multiprocessing
 
 gs = gridspec.GridSpec(1, 8)

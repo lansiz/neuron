@@ -4,7 +4,7 @@ import numpy as np
 # import random
 # import argparse
 import matplotlib as mpl
-mpl.use('Agg', warn=False)
+# mpl.use('Agg')
 import matplotlib.pyplot as plt
 from nn_meshed import NeuralNetwork
 # import mnist

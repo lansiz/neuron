@@ -5,7 +5,7 @@ import random
 import datetime
 import argparse
 import matplotlib as mpl
-mpl.use('Agg', warn=False)
+# mpl.use('Agg', warn=False)
 import matplotlib.pyplot as plt
 from nn_growable import NeuralNetwork
 import skl

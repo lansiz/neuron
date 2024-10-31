@@ -6,7 +6,7 @@ Based on code from https://gist.github.com/akesling/5358964
 from sklearn import datasets
 # import numpy as np
 import matplotlib as mpl
-mpl.use('Agg', warn=False)
+# mpl.use('Agg')
 import matplotlib.pyplot as plt
 import random
 import utils

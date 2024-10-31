@@ -4,7 +4,7 @@ from connection import Connection
 import matplotlib.pyplot as plt
 import multiprocessing
 import matplotlib as mpl
-mpl.use('Agg', warn=False)
+# mpl.use('Agg', warn=False)
 
 trails = 10
 x_number = 20

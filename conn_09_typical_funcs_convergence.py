@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-mpl.use('Agg', warn=False)
+# mpl.use('Agg', warn=False)
 
 gs = gridspec.GridSpec(1, 15)
 ax1 = plt.subplot(gs[:, :5])
