@@ -29,18 +29,6 @@
 
 `nn_02_different_e_to_fp.py` with different plasticity functions PF32, PF12, PF30, PF15.
 
-## Figure 12: meshed-NN classifier for digit 6
-
-`nn_meshed_dist_6_digit.py`
-
-## Figure 13: meshed-NN classifier for all digits
-
-`nn_meshed_dist_digit.py`
-
-## Figure 15: Optimization of growable classifier
-
-`nn_growable_6_digit_80_81.py`
-
 ## meshed-NN
 
 training: `nn_meshed_train_batch.sh`
@@ -54,3 +42,15 @@ per-digit testing: `nn_meshed_test_number_batch.sh`
 training: `nn_growable_train_batch.sh`
 
 testing: `nn_growable_test_batch.sh`
+
+## Figure 12: meshed-NN classifier for digit 6
+
+`nn_meshed_dist_6_digit.py`
+
+## Figure 13: meshed-NN classifier for all digits
+
+`nn_meshed_dist_digit.py`
+
+## Figure 15: Optimization of growable classifier
+
+`nn_growable_6_digit_80_81.py`

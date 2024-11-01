@@ -1,21 +1,21 @@
 
-#sensors: 64 PF: <function PF80 at 0x7f82e86f1d08>
-6:  start time: 2019-03-17 00:55:49.892609 stop time:  2019-03-17 01:14:20.561959
-#sensors: 64 PF: <function PF80 at 0x7f3e30b74d08>
-0:  start time: 2019-03-17 00:55:49.669597 stop time:  2019-03-17 01:14:21.561709
-#sensors: 64 PF: <function PF80 at 0x7f498ae87d08>
-2:  start time: 2019-03-17 00:55:49.600949 stop time:  2019-03-17 01:14:22.595700
-#sensors: 64 PF: <function PF80 at 0x7f2f4495bd08>
-9:  start time: 2019-03-17 00:55:49.866064 stop time:  2019-03-17 01:14:22.606993
-#sensors: 64 PF: <function PF80 at 0x7fd035faed08>
-5:  start time: 2019-03-17 00:55:50.067154 stop time:  2019-03-17 01:14:23.097673
-#sensors: 64 PF: <function PF80 at 0x7fcd69070d08>
-3:  start time: 2019-03-17 00:55:49.816284 stop time:  2019-03-17 01:14:23.484889
-#sensors: 64 PF: <function PF80 at 0x7fb698c73d08>
-8:  start time: 2019-03-17 00:55:49.745694 stop time:  2019-03-17 01:14:24.854395
-#sensors: 64 PF: <function PF80 at 0x7fa4e5445d08>
-1:  start time: 2019-03-17 00:55:49.829249 stop time:  2019-03-17 01:14:25.264146
-#sensors: 64 PF: <function PF80 at 0x7f8062db2d08>
-4:  start time: 2019-03-17 00:55:49.986262 stop time:  2019-03-17 01:14:25.635509
-#sensors: 64 PF: <function PF80 at 0x7fb61c135d08>
-7:  start time: 2019-03-17 00:55:49.880889 stop time:  2019-03-17 01:14:26.614049
+#sensors: 64 PF: <function PF80 at 0x7d3f87e9a480>
+5:  start time: 2024-11-02 02:25:33.784148 stop time:  2024-11-02 02:26:19.468817
+#sensors: 64 PF: <function PF80 at 0x7bf017a5a480>
+7:  start time: 2024-11-02 02:25:33.794631 stop time:  2024-11-02 02:26:19.486458
+#sensors: 64 PF: <function PF80 at 0x7df8311a2480>
+9:  start time: 2024-11-02 02:25:33.750221 stop time:  2024-11-02 02:26:19.872779
+#sensors: 64 PF: <function PF80 at 0x727ca67aa480>
+3:  start time: 2024-11-02 02:25:33.790756 stop time:  2024-11-02 02:26:19.923085
+#sensors: 64 PF: <function PF80 at 0x7358a5dc2480>
+4:  start time: 2024-11-02 02:25:33.971962 stop time:  2024-11-02 02:26:19.983098
+#sensors: 64 PF: <function PF80 at 0x773712fb6480>
+8:  start time: 2024-11-02 02:25:33.850760 stop time:  2024-11-02 02:26:28.402754
+#sensors: 64 PF: <function PF80 at 0x7701aa9ba480>
+6:  start time: 2024-11-02 02:25:33.830369 stop time:  2024-11-02 02:26:50.923694
+#sensors: 64 PF: <function PF80 at 0x7a2d093c6480>
+2:  start time: 2024-11-02 02:25:34.181628 stop time:  2024-11-02 02:26:51.266837
+#sensors: 64 PF: <function PF80 at 0x77bad15b2480>
+0:  start time: 2024-11-02 02:25:34.211774 stop time:  2024-11-02 02:26:54.689951
+#sensors: 64 PF: <function PF80 at 0x75df9b1b2480>
+1:  start time: 2024-11-02 02:25:34.190495 stop time:  2024-11-02 02:26:55.696808
